@@ -26,11 +26,7 @@
       </div>
     </header>
 
-    <div class="border-b-3 border-border">
-      <div id="filters" class="mx-auto flex max-w-7xl gap-3 overflow-x-auto px-6 py-4" role="group" aria-label="Filter components"></div>
-    </div>
-
-    <main id="gallery" class="mx-auto grid max-w-7xl grid-cols-1 gap-8 p-6 min-[560px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"></main>
+    <main id="gallery" class="mx-auto flex max-w-7xl flex-col gap-12 px-6 pt-12 pb-16"></main>
 
     <script>
       const icon = (paths, size = 16) =>
@@ -227,7 +223,6 @@
       const cardButton = 'inline-flex size-8 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent';
 
       const gallery = document.getElementById('gallery');
-      const filters = document.getElementById('filters');
       const theme = document.getElementById('theme');
       const syncSliders = (root) =>
         root.querySelectorAll('input[type=range]').forEach((el) => {
@@ -237,35 +232,31 @@
         });
 
       theme.innerHTML = `<span class="dark:hidden">${icons.sun}</span><span class="hidden dark:block">${icons.moon}</span>`;
-      filters.innerHTML = ['All', 'Actions', 'Input', 'Navigation', 'Feedback', 'Content']
-        .map((name, i) => `<button type="button" aria-pressed="${i === 0}" class="${chip}">${name}</button>`)
-        .join('');
-      gallery.innerHTML = components
-        .map(
-          (c, i) => `<article data-index="${i}" data-category="${c.category}" class="flex min-h-84 flex-col border-3 border-border bg-card shadow-sm">
+      // Cards are grouped by category, in the order each category first appears, keeping their order inside a group.
+      const categories = [...new Set(components.map((c) => c.category))];
+      const card = (c, i) => `<article data-index="${i}" data-category="${c.category}" class="flex min-h-84 flex-col border-3 border-border bg-card shadow-sm">
             <header class="flex h-12 items-center justify-between gap-3 border-b-3 border-border pr-2 pl-6 ${headers[c.category]}">
-              <h2 class="type-label">${c.name}</h2>
+              <h3 class="type-label">${c.name}</h3>
               <div class="flex gap-2">
                 ${c.stateful ? `<button type="button" data-reset aria-label="Reset ${c.name}" class="${cardButton}">${icons.reset}</button>` : ''}
                 <button type="button" data-copy aria-label="Copy ${c.name} markup" class="${cardButton}">${icons.copy}</button>
               </div>
             </header>
             <div data-demo class="flex flex-1 items-center justify-center ${c.bleed ? 'py-6' : 'p-6'}">${c.html}</div>
-          </article>`,
+          </article>`;
+      gallery.innerHTML = categories
+        .map(
+          (category) => `<section aria-labelledby="group-${category.toLowerCase()}" class="flex flex-col gap-6">
+            <h2 id="group-${category.toLowerCase()}" class="type-h2 uppercase max-sm:type-h3">${category}</h2>
+            <div class="grid grid-cols-1 gap-8 min-[560px]:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              ${components.map((c, i) => (c.category === category ? card(c, i) : '')).join('')}
+            </div>
+          </section>`,
         )
         .join('');
       syncSliders(gallery);
 
       theme.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
-
-      filters.addEventListener('click', (event) => {
-        const button = event.target.closest('button');
-        if (!button) return;
-        for (const b of filters.children) b.setAttribute('aria-pressed', b === button);
-        for (const card of gallery.children) {
-          card.hidden = button.textContent !== 'All' && card.dataset.category !== button.textContent;
-        }
-      });
 
       gallery.addEventListener('input', (event) => syncSliders(event.target.parentElement));
       gallery.addEventListener('submit', (event) => event.preventDefault());

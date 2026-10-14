@@ -388,7 +388,7 @@ Rules:
 - Spacing uses the Tailwind 4px unit and lands on an 8px grid: 8 inside a control, 16 between stacked options and as field padding, 24 as card padding and page margin, 32 between cards (the shadow takes 6 of it), 48 and 96 between sections. 12 and 20 appear only inside a control or a compact card.
 - The page is `bg-background blok-grid`: the 24px grid shows between blocks. Cards sit on it with a 32px gap; do not place loose text on the grid except headlines and the marquee.
 - Cards form a grid: one column on phones, two from 560px, three from 1024px, four from 1280px. A card is a column with a colored header bar and a body; it has no fixed ratio and is at least 336px tall in a gallery.
-- The header is a `bg-card` bar with a 3px bottom border; the wordmark sits left and the theme switch is a 48px block on the right. Filters are a row of chips with a 12px gap that scrolls on small screens.
+- The header is a `bg-card` bar with a 3px bottom border; the wordmark sits left and the theme switch is a 48px block on the right. In a gallery, cards are grouped under section titles (`type-h2` in capitals, 48px above, 24px below).
 - Controls are 48px tall by default (buttons, fields, icon buttons, the theme switch); chips are 40, tabs 48 with their frame, badges 28, small icon buttons 32.
 
 ## Elevation & Depth

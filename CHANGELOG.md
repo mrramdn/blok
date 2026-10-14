@@ -3,6 +3,13 @@
 Blok uses semantic versions. While it is in beta, a minor version adds or changes tokens, components or rules,
 and a patch fixes them. Every version is a git tag (`v0.1.0`) and an entry in the design site's record.
 
+## 0.2.1 (2026-10-14)
+
+- The gallery groups its 24 components under category headings (Actions, Content, Input, Navigation, Feedback;
+  `type-h2` in capitals) instead of a row of filter chips under the header. Card names are `h3`.
+- Figma: the galleries had no filter row to remove; their only chip row is the Chip component's own sample,
+  which stays.
+
 ## 0.2.0 (2026-10-14)
 
 A blank component sheet and an example screen.
