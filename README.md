@@ -10,10 +10,11 @@ A neo-brutalist design system: thick black outlines, hard offset shadows without
 | --- | --- |
 | `blok.css` | Tailwind CSS v4 theme: color tokens (light and dark), the hard shadows, radius 0, type utilities, the `blok-press` physics and the slider, checkbox, radio and grid utilities. Token names follow shadcn/ui. |
 | `DESIGN.md` | The rules, the measured contrast of both modes and the component recipes, in the [design.md](https://github.com/google-labs-code/design.md) format. |
-| `preview/index.html` | Component gallery built with the theme: 22 live components for a print fair, a dark mode switch, category filters, and copy and reset buttons per component. |
+| `preview/index.html` | Component gallery built with the theme: 24 live components with neutral placeholder content and their variants and states, a dark mode switch, category filters, and copy and reset buttons per component. |
+| `preview/demo.html` | An example screen built only from the recipes: the landing page of an invented two-day print and zine fair in Bandung. |
 | `CHANGELOG.md` | What changed in each version. |
 
-Figma: [Blok Design System](https://www.figma.com/design/XcVs9c9Dpbd7N9AIzbY5Ia) (pages Cover, Foundations and Components).
+Figma: [Blok Design System](https://www.figma.com/design/XcVs9c9Dpbd7N9AIzbY5Ia) (pages Cover, Foundations, Components and Example; Example rebuilds the demo screen from instances in light and dark).
 
 ## Use it in a project
 
@@ -41,11 +42,11 @@ The theme removes the default Tailwind palette, radii and shadows on purpose. Us
 
 ```sh
 pnpm install
-pnpm build   # writes preview/preview.css from the classes in preview/index.html
+pnpm build   # writes preview/preview.css from the classes in preview/index.html and preview/demo.html
 pnpm dev     # same, watching for changes
 ```
 
-Then open `preview/index.html` in a browser. Copy needs a secure context, so serve the folder (`python3 -m http.server -d preview`) if the clipboard button does nothing over `file://`.
+Then open `preview/index.html` (the gallery) or `preview/demo.html` (the example screen) in a browser. Copy needs a secure context, so serve the folder (`python3 -m http.server -d preview`) if the clipboard button does nothing over `file://`.
 
 `npx @google/design.md lint DESIGN.md` checks the token file. It reports no errors. The warnings are component sub-tokens the format does not know yet (`borderColor`, `borderWidth`, `shadow`, which the recipes need), tokens that only the prose uses, and `fontStretch` on the four expanded type roles.
 
@@ -61,4 +62,4 @@ The version is in `package.json`, `CHANGELOG.md` says what changed, and every re
 
 ## Where the look comes from
 
-The look is original. It takes the vocabulary of neo-brutalist launch pages and indie product sites (thick outlines, hard shadows, flat saturated fills, heavy type) and fixes it to a small set of values: five fills, two shadow offsets, one outline color, no radius, one focus color. Archivo's width axis gives the display type its expanded shape, and Space Mono sets everything that is a label or a figure. No reference screenshot was measured; every value was chosen for this system and its contrast was computed. The demo content is an invented print and zine fair.
+The look is original. It takes the vocabulary of neo-brutalist launch pages and indie product sites (thick outlines, hard shadows, flat saturated fills, heavy type) and fixes it to a small set of values: five fills, two shadow offsets, one outline color, no radius, one focus color. Archivo's width axis gives the display type its expanded shape, and Space Mono sets everything that is a label or a figure. No reference screenshot was measured; every value was chosen for this system and its contrast was computed. The gallery content is neutral placeholder text; the example screen is an invented print and zine fair.

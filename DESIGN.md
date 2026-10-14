@@ -161,6 +161,27 @@ components:
     height: 48px
     padding: 0 24px
     shadow: 4px 4px 0 0 {colors.foreground}
+  button-destructive:
+    backgroundColor: "{colors.destructive}"
+    textColor: "{colors.destructive-foreground}"
+    borderColor: "{colors.border}"
+    borderWidth: 2px
+    typography: "{typography.button}"
+    height: 48px
+    padding: 0 24px
+    shadow: 4px 4px 0 0 {colors.foreground}
+  button-ghost:
+    textColor: "{colors.foreground}"
+    typography: "{typography.button}"
+    height: 48px
+    padding: 0 24px
+  button-ghost-hover:
+    backgroundColor: "{colors.accent}"
+    borderColor: "{colors.border}"
+  button-small:
+    typography: "{typography.ui}"
+    height: 40px
+    padding: 0 16px
   icon-button:
     backgroundColor: "{colors.card}"
     textColor: "{colors.foreground}"
@@ -307,7 +328,7 @@ Rules:
 - Yellow is the primary action. One primary button per view; the yellow also marks the on state of controls and fills the marquee. Yellow is never text, and text on yellow is always black.
 - Pink, blue and mint are fills for blocks, chips, card headers and stickers, never for text and never gradients. Each has one text color: black on pink and mint, white on blue.
 - `foreground` does triple duty as text, outline and shadow. Do not introduce a gray outline or a gray shadow.
-- Inverted blocks (`bg-foreground text-background`) are for selected chips, selected tabs, the "sold out" badge and the step that is done.
+- Inverted blocks (`bg-foreground text-background`) are for selected chips, selected tabs, the "Closed" badge and the step that is done.
 - Status colors are fills with words, never color alone.
 
 Measured contrast (WCAG 2, both modes pass AA for text; most pass AAA):
@@ -393,53 +414,65 @@ Icons are Lucide at 16px (`size-4`) in `currentColor`, 20px when the icon stands
 
 ## Components
 
-Copy these recipes. The live versions are in `preview/index.html`. Every block carries the same three parts: a 2px outline (`border-2 border-border`, 3px on cards), a hard shadow (`shadow-xs` on controls, `shadow-sm` on cards, `shadow-lg` on floating surfaces) and, when it can be clicked, `blok-press`.
+Copy these recipes. The live versions are in `preview/index.html`, which copies this markup, with neutral placeholder content to replace. `preview/demo.html` is an example screen, an event landing page, built only from these recipes and layout utilities. Every block carries the same three parts: a 2px outline (`border-2 border-border`, 3px on cards), a hard shadow (`shadow-xs` on controls, `shadow-sm` on cards, `shadow-lg` on floating surfaces) and, when it can be clicked, `blok-press`. `<!-- name -->` stands for a Lucide icon at the size the text gives.
 
 ### Button
 
-48px block, 2px outline, 4px shadow, bold 16px text. One primary button per view.
+48px block, 2px outline, 4px shadow, bold 16px text. Primary is yellow, secondary is the quiet cream, outline is the card color. One primary button per view.
 
 ```html
-<button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-primary text-primary-foreground hover:bg-primary-hover">Get tickets<!-- 16px Lucide arrow-right --></button>
+<div class="flex flex-col items-center gap-5"><button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-primary text-primary-foreground hover:bg-primary-hover">Continue<!-- arrow-right --></button><button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-secondary text-secondary-foreground">Save</button><button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent">Cancel</button></div>
 ```
 
-- Secondary: `bg-secondary text-secondary-foreground` instead of the primary colors.
-- Outline: `bg-card text-foreground hover:bg-accent`.
-- Small (40px): `h-10 px-4 type-ui` instead of `h-12 px-6 text-base font-bold`.
 - Full width in a card: add `w-full`.
+- An icon sits after the words at 16px.
+
+### Button variants
+
+Destructive, ghost, small and disabled, on the same base as the button.
+
+```html
+<div class="flex flex-col items-center gap-5"><button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-destructive text-destructive-foreground"><!-- trash-2 -->Delete</button><button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-transparent px-6 text-base font-bold text-foreground transition-colors hover:border-border hover:bg-accent">Skip</button><button type="button" class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent">Small</button><button type="button" disabled class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-primary text-primary-foreground hover:bg-primary-hover">Disabled</button></div>
+```
+
+- Destructive: `bg-destructive text-destructive-foreground`, for an action that deletes or cannot be undone. Name the action ("Delete"), never "OK".
+- Ghost: no fill, no shadow and no `blok-press`; the outline and the accent fill appear on hover. For a third action next to a primary and a secondary one.
+- Small (40px): `h-10 px-4 type-ui` instead of `h-12 px-6 text-base font-bold`, for toolbars and card footers.
+- Disabled: the `disabled` attribute. The block drops to 40% and loses its shadow.
 
 ### Icon button
 
-48px square block around a 20px icon. Inside a card header use `size-8` with a 16px icon.
+48px square block around a 20px icon; 40px for a quiet close button. Inside a card header use `size-8` with a 16px icon. Every icon button has an `aria-label`.
 
 ```html
-<button type="button" aria-label="Share" class="inline-flex size-12 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent"><!-- 20px Lucide icon --></button>
+<div class="flex flex-wrap items-center justify-center gap-5"><button type="button" aria-label="Add" class="inline-flex size-12 items-center justify-center border-2 border-border bg-primary text-primary-foreground shadow-xs blok-press hover:bg-primary-hover disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none"><!-- plus --></button><button type="button" aria-label="Share" class="inline-flex size-12 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none"><!-- share-2 --></button><button type="button" aria-label="Close" class="inline-flex size-10 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none"><!-- x --></button><button type="button" aria-label="Edit" disabled class="inline-flex size-12 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none"><!-- pencil --></button></div>
 ```
 
-For the one primary icon action use `bg-primary text-primary-foreground hover:bg-primary-hover`.
+- For the one primary icon action use `bg-primary text-primary-foreground hover:bg-primary-hover`.
+- Disabled: the `disabled` attribute, 40% and no shadow.
 
 ### Chip
 
 40px filter block. Exactly one chip in a group has `aria-pressed="true"`; it is inverted and sits pressed into its shadow.
 
 ```html
-<div role="group" aria-label="Programme" class="flex flex-wrap justify-center gap-3"><button type="button" aria-pressed="true" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">All</button><button type="button" aria-pressed="false" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">Riso</button></div>
+<div role="group" aria-label="Options" class="flex flex-wrap justify-center gap-3"><button type="button" aria-pressed="true" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">All</button><button type="button" aria-pressed="false" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">Option A</button><button type="button" aria-pressed="false" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">Option B</button><button type="button" aria-pressed="false" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">Option C</button></div>
 ```
 
 ### Toggle
 
-56 by 32px block with a 24px square thumb. Checked, the track turns yellow and the thumb moves right. Flip `aria-checked` on click.
+56 by 32px block with a 24px square thumb. Checked, the track turns yellow and the thumb moves right. Flip `aria-checked` on click. A disabled toggle drops to 40% and its label turns `text-muted-foreground`.
 
 ```html
-<div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="true" aria-labelledby="reminders" class="group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none"><span class="absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6"></span></button><span id="reminders" class="type-ui">Email reminders</span></div>
+<div class="flex flex-col gap-5"><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="true" aria-labelledby="toggle-on" class="group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none"><span class="absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6"></span></button><span id="toggle-on" class="type-ui">Notifications</span></div><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="false" aria-labelledby="toggle-off" class="group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none"><span class="absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6"></span></button><span id="toggle-off" class="type-ui">Email updates</span></div><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="false" aria-labelledby="toggle-disabled" disabled class="group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none"><span class="absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6"></span></button><span id="toggle-disabled" class="type-ui text-muted-foreground">Disabled</span></div></div>
 ```
 
 ### Slider
 
-A native range input with the `blok-slider` utility from `blok.css`: a 16px outlined track filled with yellow and a 24px block thumb. Chrome and Safari need `--slider-fill` to paint the filled part, so update it on every `input` event, and write the value into the `output`.
+A native range input with the `blok-slider` utility from `blok.css`: a 16px outlined track filled with yellow and a 24px block thumb. Chrome and Safari need `--slider-fill` to paint the filled part, so update it on every `input` event, and write the value into the `output`. A disabled slider drops to 40%.
 
 ```html
-<label class="block w-full"><span class="flex items-baseline justify-between"><span class="type-ui">Print run</span><output class="type-mono">120 copies</output></span><input type="range" min="20" max="500" step="10" value="120" data-unit="copies" class="mt-3 blok-slider" /></label>
+<div class="flex w-full flex-col gap-6"><label class="block w-full"><span class="flex items-baseline justify-between"><span class="type-ui">Volume</span><output class="type-mono">40</output></span><input type="range" min="0" max="100" step="1" value="40" class="mt-3 blok-slider" /></label><label class="block w-full"><span class="flex items-baseline justify-between text-muted-foreground"><span class="type-ui">Disabled</span><output class="type-mono">70</output></span><input type="range" min="0" max="100" step="1" value="70" disabled class="mt-3 blok-slider" /></label></div>
 ```
 
 ```js
@@ -448,18 +481,18 @@ el.style.setProperty('--slider-fill', `${((el.value - el.min) / (el.max - el.min
 
 ### Single selection (radio)
 
-Native radios with the `blok-radio` utility, in a `fieldset` with a `legend`. The checked state is a 7px black ring around a yellow center. A figure on the right is `type-mono`.
+Native radios with the `blok-radio` utility, in a `fieldset` with a `legend`. The checked state is a 7px black ring around a yellow center. A disabled option drops to 40% and its label turns `text-muted-foreground` (`has-disabled:`).
 
 ```html
-<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Pass</legend><label class="flex w-full items-center gap-3 type-small"><input type="radio" name="pass" checked class="blok-radio" />Day pass<span class="ml-auto type-mono text-muted-foreground">Rp50.000</span></label><label class="flex w-full items-center gap-3 type-small"><input type="radio" name="pass" class="blok-radio" />Weekend pass<span class="ml-auto type-mono text-muted-foreground">Rp120.000</span></label></fieldset>
+<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Period</legend><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="radio" name="period" checked class="blok-radio" />Day</label><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="radio" name="period" class="blok-radio" />Week</label><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="radio" name="period" class="blok-radio" />Month</label><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="radio" name="period" disabled class="blok-radio" />Disabled</label></fieldset>
 ```
 
 ### Checkbox
 
-Native checkbox with the `blok-checkbox` utility: a 24px block with a 4px shadow; checked, it fills yellow with a black check.
+Native checkbox with the `blok-checkbox` utility: a 24px block with a 4px shadow; checked, it fills yellow with a black check. Disabled works as on the radio.
 
 ```html
-<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Add-ons</legend><label class="flex w-full items-center gap-3 type-small"><input type="checkbox" checked class="blok-checkbox" />Workshop seat</label><label class="flex w-full items-center gap-3 type-small"><input type="checkbox" class="blok-checkbox" />Printed programme</label></fieldset>
+<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Notifications</legend><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="checkbox" checked class="blok-checkbox" />Email</label><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="checkbox" class="blok-checkbox" />Push</label><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="checkbox" checked class="blok-checkbox" />Weekly summary</label><label class="flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground"><input type="checkbox" disabled class="blok-checkbox" />Disabled</label></fieldset>
 ```
 
 ### Text field
@@ -467,25 +500,34 @@ Native checkbox with the `blok-checkbox` utility: a 24px block with a 4px shadow
 48px block with a visible label above and a Space Mono hint below.
 
 ```html
-<label class="block w-full"><span class="type-ui">Email</span><input type="email" placeholder="you@studio.id" class="mt-2 h-12 w-full border-2 border-input bg-card px-4 text-base shadow-xs placeholder:text-muted-foreground disabled:opacity-40 disabled:shadow-none" /><span class="mt-3 block type-caption text-muted-foreground">Your ticket is sent here.</span></label>
+<label class="block w-full"><span class="type-ui">Email</span><input type="email" placeholder="name@example.com" class="mt-2 h-12 w-full border-2 border-input bg-card px-4 text-base shadow-xs placeholder:text-muted-foreground disabled:opacity-40 disabled:shadow-none" /><span class="mt-3 block type-caption text-muted-foreground">Supporting text for the field.</span></label>
 ```
 
-For an error, add `aria-invalid="true"`, swap `border-input` for `border-destructive`, and put the message in `type-caption text-destructive` below, saying how to fix the value.
+### Text field states
+
+The error and the disabled field.
+
+```html
+<div class="flex w-full flex-col gap-6"><label class="block w-full"><span class="type-ui">Email</span><input type="email" value="name@example" aria-invalid="true" aria-describedby="field-error" class="mt-2 h-12 w-full border-2 border-destructive bg-card px-4 text-base shadow-xs placeholder:text-muted-foreground disabled:opacity-40 disabled:shadow-none" /><span id="field-error" class="mt-3 inline-block bg-destructive px-2 py-0.5 type-caption text-destructive-foreground">Enter a full email address.</span></label><label class="block w-full"><span class="type-ui text-muted-foreground">Name</span><input type="text" placeholder="Disabled" disabled class="mt-2 h-12 w-full border-2 border-input bg-card px-4 text-base shadow-xs placeholder:text-muted-foreground disabled:opacity-40 disabled:shadow-none" /></label></div>
+```
+
+- Error: add `aria-invalid="true"` and `aria-describedby`, swap `border-input` for `border-destructive`, and put the message below in a red block (`bg-destructive text-destructive-foreground type-caption`) that says how to fix the value. Red text alone is not used: on the dark card it reaches only 3.4:1.
+- Disabled: the `disabled` attribute and a muted label.
 
 ### Tabs
 
 One outlined block with 2px dividers; the selected tab is inverted. Arrow keys move the selection.
 
 ```html
-<div role="tablist" aria-label="Day" class="inline-flex divide-x-2 divide-border border-2 border-border bg-card shadow-xs"><button type="button" role="tab" aria-selected="true" class="h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background">Fri</button><button type="button" role="tab" aria-selected="false" class="h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background">Sat</button></div>
+<div role="tablist" aria-label="Period" class="inline-flex divide-x-2 divide-border border-2 border-border bg-card shadow-xs"><button type="button" role="tab" aria-selected="true" class="h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background">Day</button><button type="button" role="tab" aria-selected="false" class="h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background">Week</button><button type="button" role="tab" aria-selected="false" class="h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background">Month</button></div>
 ```
 
 ### Badge
 
-28px outlined tag in Space Mono capitals. The fill says the kind: mint for free, pink for new, warning for scarce, inverted for sold out. The word carries the meaning, not the color.
+28px outlined tag in Space Mono capitals. The fill says the kind and the word carries the meaning: success for active, warning for pending, destructive for failed, the card color for a draft, pink for new, inverted for closed.
 
 ```html
-<span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-mint text-mint-foreground">Free</span>
+<div class="flex flex-wrap justify-center gap-3"><span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-success text-success-foreground">Active</span><span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-warning text-warning-foreground">Pending</span><span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-destructive text-destructive-foreground">Failed</span><span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-card text-foreground">Draft</span><span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-pink text-pink-foreground">New</span><span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-foreground text-background">Closed</span></div>
 ```
 
 ### Progress
@@ -493,15 +535,15 @@ One outlined block with 2px dividers; the selected tab is inverted. Arrow keys m
 A 20px outlined track; the yellow fill ends in a 2px line. Write the figure next to the label.
 
 ```html
-<div class="w-full"><div class="flex items-baseline justify-between"><span class="type-ui">Booths taken</span><span class="type-mono">64 / 80</span></div><div role="progressbar" aria-label="Booths taken" aria-valuenow="64" aria-valuemin="0" aria-valuemax="80" class="mt-2 h-5 w-full border-2 border-border bg-card"><div class="h-full w-[80%] border-r-2 border-border bg-primary"></div></div></div>
+<div class="w-full"><div class="flex items-baseline justify-between"><span class="type-ui">Upload</span><span class="type-mono">64%</span></div><div role="progressbar" aria-label="Upload" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" class="mt-2 h-5 w-full border-2 border-border bg-card"><div class="h-full w-[64%] border-r-2 border-border bg-primary"></div></div></div>
 ```
 
 ### List
 
-An outlined block with 2px dividers. Rows hold a Space Mono figure, a title and, when needed, a `type-label` tag on the right.
+An outlined block with 2px dividers. Rows hold a Space Mono figure, a title and, on the right, a chevron when the row opens something or a `type-label` value.
 
 ```html
-<ul class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">10:00</span><span class="type-ui">Doors open</span></li><li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">11:00</span><span class="type-ui">Riso 101</span><span class="ml-auto type-label">Hall A</span></li></ul>
+<ul class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">01</span><span class="type-ui">Account</span><span class="ml-auto"><!-- chevron-right --></span></li><li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">02</span><span class="type-ui">Notifications</span><span class="ml-auto type-label">On</span></li><li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">03</span><span class="type-ui">Privacy</span><span class="ml-auto"><!-- chevron-right --></span></li></ul>
 ```
 
 ### Spinner
@@ -517,27 +559,25 @@ A 32px outlined square with a yellow top edge, turning in eight steps a second. 
 3px outline, 6px shadow, a colored header bar with a `type-label` title and a body with 20px padding.
 
 ```html
-<article class="flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Workshop</h3><span class="type-caption">Sat 21 · 11:00</span></header><div class="flex flex-col gap-3 p-5"><p class="type-title">Riso 101</p><p class="type-small text-muted-foreground">Two colours in one afternoon. Paper and ink are included; bring a sketch.</p><div class="flex items-center justify-between pt-1"><span class="type-mono">12 seats left</span><button type="button" class="h-10 border-2 border-border bg-card px-4 type-ui shadow-xs blok-press hover:bg-accent">Book</button></div></div></article>
+<article class="flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Label</h3><span class="type-caption">14 Oct 2026</span></header><div class="flex flex-col gap-3 p-5"><p class="type-title">Card title</p><p class="type-small text-muted-foreground">Supporting text that explains the item in a line or two.</p><div class="flex items-center justify-between pt-1"><span class="type-mono">1,234</span><button type="button" class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent">Open</button></div></div></article>
 ```
 
-The header color names the kind of content (yellow for actions, pink for input, blue for navigation, mint for feedback, inverted for content in the gallery); pick one mapping per product and keep it.
+- The header color names the kind of content (yellow for actions, pink for input, blue for navigation, mint for feedback, inverted for content in the gallery); pick one mapping per product and keep it.
 
 ### Marquee
 
-A strip with 3px rules, top and bottom, whose items scroll left for 28 seconds per loop. The list is doubled so the loop is seamless, and hidden from assistive technology; the sentence is in a visually hidden paragraph. It pauses on hover and stops under `prefers-reduced-motion`.
+A strip with 3px rules, top and bottom, whose items scroll left for 28 seconds per loop. The list is doubled so the loop is seamless, and hidden from assistive technology; the words are repeated in a visually hidden paragraph. It pauses on hover and stops under `prefers-reduced-motion`. The inverted strip is `bg-foreground text-background` with `bg-background` squares and runs the other way with `[animation-direction:reverse]`. Squares on the yellow strip are `bg-primary-foreground`, so they stay black in dark mode.
 
 ```html
-<div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground"><p class="sr-only">Pasar Cetak, 20 to 22 November 2026, Bandung. Tickets on sale.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]"><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Pasar Cetak<span class="size-3 bg-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">20–22 Nov 2026<span class="size-3 bg-foreground"></span></li><!-- the same items once more --></ul></div>
+<div class="flex w-full flex-col gap-6"><div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground"><p class="sr-only">New. Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]"><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">New<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><!-- the same items once more --></ul></div><div class="w-full overflow-hidden border-y-3 border-border bg-foreground py-3 text-background"><p class="sr-only">Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee [animation-direction:reverse] motion-reduce:animate-none hover:[animation-play-state:paused]"><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><!-- the same items once more --></ul></div></div>
 ```
-
-An inverted strip is `bg-foreground text-background` with `bg-background` squares; add `[animation-direction:reverse]` to run it the other way.
 
 ### Accordion
 
 Native `details` in an outlined block with 2px dividers. The yellow square shows + when closed and − when open.
 
 ```html
-<div class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><details class="group" open><summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden">Can I bring my own paper?<span class="flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block"><!-- 16px Lucide plus --><!-- 16px Lucide minus --></span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Yes, up to A3 and 300 gsm. Coated paper does not take riso ink well.</p></details></div>
+<div class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><details class="group" open><summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden">Section title<span class="flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block"><!-- plus --><!-- minus --></span></summary><p class="px-4 pb-4 type-small text-muted-foreground">An open section shows its text here. One click on the title closes it again.</p></details><details class="group"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden">Second section<span class="flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block"><!-- plus --><!-- minus --></span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Supporting text that explains the item in a line or two.</p></details><details class="group"><summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden">Third section<span class="flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block"><!-- plus --><!-- minus --></span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Supporting text that explains the item in a line or two.</p></details></div>
 ```
 
 ### Steps
@@ -545,7 +585,7 @@ Native `details` in an outlined block with 2px dividers. The yellow square shows
 An ordered list with 32px numbered blocks joined by a 2px line. Done steps are inverted, the current step is yellow and carries `aria-current="step"`, steps to come are outlined.
 
 ```html
-<ol class="flex w-full flex-col"><li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-foreground text-background" aria-hidden="true">1</span><div><p class="type-ui">Pick a pass</p><p class="type-caption text-muted-foreground">Weekend pass</p></div></li><li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden" aria-current="step"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-primary text-primary-foreground" aria-hidden="true">2</span><div><p class="type-ui">Choose a workshop</p><p class="type-caption text-muted-foreground">Riso 101, 12 seats left</p></div></li></ol>
+<ol class="flex w-full flex-col"><li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-foreground text-background" aria-hidden="true">1</span><div><p class="type-ui">Account</p><p class="type-caption text-muted-foreground">Done</p></div></li><li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden" aria-current="step"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-primary text-primary-foreground" aria-hidden="true">2</span><div><p class="type-ui">Details</p><p class="type-caption text-muted-foreground">Current step</p></div></li><li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-card text-foreground" aria-hidden="true">3</span><div><p class="type-ui">Confirm</p><p class="type-caption text-muted-foreground">Next</p></div></li></ol>
 ```
 
 ### Pricing tier
@@ -553,7 +593,7 @@ An ordered list with 32px numbered blocks joined by a 2px line. Done steps are i
 A card with a mint header, the price in `type-h3`, a list with square bullets and a full-width primary button. A sticker on the corner marks the recommended tier.
 
 ```html
-<article class="relative flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><span class="absolute -top-4 -right-3 rotate-6 inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs bg-pink text-pink-foreground">Best value</span><header class="border-b-3 border-border bg-mint px-5 py-3 text-mint-foreground"><h3 class="type-label">Weekend pass</h3></header><div class="flex flex-col gap-4 p-5"><p class="flex flex-wrap items-baseline gap-x-2"><span class="type-h3 whitespace-nowrap">Rp120.000</span><span class="type-caption text-muted-foreground">3 days</span></p><ul class="flex flex-col gap-2 type-small"><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Friday to Sunday</li><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>One workshop seat</li></ul><button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none w-full bg-primary text-primary-foreground hover:bg-primary-hover">Choose</button></div></article>
+<article class="relative flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><span class="absolute -top-4 -right-3 rotate-6 inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs bg-pink text-pink-foreground">Label</span><header class="border-b-3 border-border bg-mint px-5 py-3 text-mint-foreground"><h3 class="type-label">Plan name</h3></header><div class="flex flex-col gap-4 p-5"><p class="flex flex-wrap items-baseline gap-x-2"><span class="type-h3 whitespace-nowrap">00</span><span class="type-caption text-muted-foreground">per month</span></p><ul class="flex flex-col gap-2 type-small"><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>A feature in one line</li><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>A second feature</li><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>A third feature</li></ul><button type="button" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none w-full bg-primary text-primary-foreground hover:bg-primary-hover">Choose</button></div></article>
 ```
 
 ### Sticker
@@ -561,11 +601,7 @@ A card with a mint header, the price in `type-h3`, a list with square bullets an
 A rotated label block, 3 to 6 degrees either way. Small stickers are `type-label` on pink or mint; a big one is `type-h3` in capitals, inverted, with a 3px outline and the card shadow.
 
 ```html
-<span class="-rotate-3 inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs bg-pink text-pink-foreground">Early bird</span>
-```
-
-```html
-<span class="inline-block -rotate-6 border-3 border-border bg-foreground px-4 py-2 type-h3 whitespace-nowrap text-background uppercase shadow-sm">Sold out</span>
+<div class="flex flex-col items-center gap-8"><span class="inline-block -rotate-6 border-3 border-border bg-foreground px-4 py-2 type-h3 whitespace-nowrap text-background uppercase shadow-sm">New</span><div class="flex gap-6"><span class="-rotate-3 inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs bg-pink text-pink-foreground">Label</span><span class="rotate-3 inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs bg-mint text-mint-foreground">Label</span></div></div>
 ```
 
 ### Callout
@@ -573,15 +609,15 @@ A rotated label block, 3 to 6 degrees either way. Small stickers are `type-label
 A full-width note block with a 20px icon, a `type-ui` title and a `type-small` sentence. Mint for information, `bg-warning text-warning-foreground` with the triangle-alert icon for a warning.
 
 ```html
-<div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-mint p-4 text-mint-foreground shadow-xs"><span class="mt-0.5 shrink-0"><!-- 20px Lucide info --></span><div class="flex flex-col gap-1"><p class="type-ui">Doors open at 10:00</p><p class="type-small">The hall closes at 21:00 on Saturday. The last workshop starts at 18:00.</p></div></div>
+<div class="flex w-full flex-col gap-4"><div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-mint p-4 text-mint-foreground shadow-xs"><span class="mt-0.5 shrink-0"><!-- info --></span><div class="flex flex-col gap-1"><p class="type-ui">Callout title</p><p class="type-small">A callout points out one thing the reader should know.</p></div></div><div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-warning p-4 text-warning-foreground shadow-xs"><span class="mt-0.5 shrink-0"><!-- triangle-alert --></span><div class="flex flex-col gap-1"><p class="type-ui">Warning</p><p class="type-small">A warning says what can go wrong and how to avoid it.</p></div></div></div>
 ```
 
 ### Newsletter
 
-A field and a yellow button joined into one block that shares one shadow; the button has no left outline. The label is visible and a `type-caption` line says how often mail arrives.
+A field and a yellow button joined into one block that shares one shadow. In a container narrower than 320px the button sits under the field (`@container` and `@xs:`); wider, it sits on the right without a left outline. The label is visible and a `type-caption` line says how often mail arrives.
 
 ```html
-<form class="flex w-full flex-col gap-3"><label for="newsletter-email" class="type-ui">Get the schedule by email</label><div class="flex shadow-xs"><input id="newsletter-email" type="email" placeholder="you@studio.id" class="h-12 min-w-0 flex-1 border-2 border-input bg-card px-4 text-base placeholder:text-muted-foreground" /><button type="submit" class="h-12 shrink-0 border-2 border-l-0 border-border bg-primary px-5 text-base font-bold text-primary-foreground transition-colors hover:bg-primary-hover">Join</button></div><p class="type-caption text-muted-foreground">One email a week until the fair.</p></form>
+<form class="flex w-full flex-col gap-3"><label for="newsletter-email" class="type-ui">Email</label><div class="@container"><div class="flex flex-col shadow-xs @xs:flex-row"><input id="newsletter-email" type="email" placeholder="name@example.com" class="h-12 min-w-0 border-2 border-input bg-card px-4 text-base placeholder:text-muted-foreground @xs:flex-1" /><button type="submit" class="h-12 shrink-0 border-2 border-t-0 border-border bg-primary px-5 text-base font-bold text-primary-foreground transition-colors hover:bg-primary-hover @xs:border-t-2 @xs:border-l-0">Subscribe</button></div></div><p class="type-caption text-muted-foreground">A line on how often email arrives.</p></form>
 ```
 
 ### Toast
@@ -589,7 +625,7 @@ A field and a yellow button joined into one block that shares one shadow; the bu
 A floating block with the 10px shadow and an 8px colored stripe on the left. The action sits under the text so the toast fits a narrow column; the dismiss button is a quiet icon button.
 
 ```html
-<div role="status" class="flex w-full max-w-sm items-start gap-3 border-2 border-l-8 border-border border-l-mint bg-card py-3 pr-2 pl-4 shadow-lg"><div class="flex min-w-0 flex-1 flex-col items-start gap-1"><p class="type-ui">Added to your order</p><p class="type-caption text-muted-foreground">2 × Weekend pass · Rp240.000</p><button type="button" class="mt-2 h-9 border-2 border-border bg-card px-3 type-ui shadow-xs blok-press hover:bg-accent">Undo</button></div><button type="button" data-dismiss aria-label="Dismiss" class="inline-flex size-9 shrink-0 items-center justify-center text-foreground hover:bg-accent"><!-- 16px Lucide x --></button></div>
+<div role="status" class="flex w-full max-w-sm items-start gap-3 border-2 border-l-8 border-border border-l-mint bg-card py-3 pr-2 pl-4 shadow-lg"><div class="flex min-w-0 flex-1 flex-col items-start gap-1"><p class="type-ui">Changes saved</p><p class="type-caption text-muted-foreground">Undo stays here for a few seconds.</p><button type="button" class="mt-2 h-9 border-2 border-border bg-card px-3 type-ui shadow-xs blok-press hover:bg-accent">Undo</button></div><button type="button" data-dismiss aria-label="Dismiss" class="inline-flex size-9 shrink-0 items-center justify-center text-foreground hover:bg-accent"><!-- x --></button></div>
 ```
 
 ### Focus

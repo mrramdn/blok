@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Blok example: event landing page</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="preview.css" />
+  </head>
+  <body class="blok-grid">
+    <!-- Pasar Cetak: an invented two-day print and zine fair in Bandung. Every block is a recipe from DESIGN.md. -->
+    <header class="border-b-3 border-border bg-card">
+      <div class="mx-auto flex h-20 max-w-6xl items-center justify-between gap-6 px-6">
+        <a href="#top" class="flex items-center gap-3" aria-label="Pasar Cetak, home">
+          <span class="flex size-10 items-center justify-center border-2 border-border bg-primary type-label text-primary-foreground shadow-xs" aria-hidden="true">PC</span>
+          <span class="type-title uppercase max-[480px]:hidden">Pasar Cetak</span>
+        </a>
+        <nav aria-label="Sections" class="flex items-center gap-6 max-md:hidden">
+          <a href="#program" class="type-ui underline-offset-4 hover:underline">Program</a>
+          <a href="#tickets" class="type-ui underline-offset-4 hover:underline">Tickets</a>
+          <a href="#visit" class="type-ui underline-offset-4 hover:underline">Visit</a>
+          <a href="#faq" class="type-ui underline-offset-4 hover:underline">FAQ</a>
+        </nav>
+        <a href="#tickets" class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent">Tickets</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- Hero -->
+      <section class="mx-auto grid max-w-6xl items-center gap-12 px-6 pt-12 pb-14 lg:grid-cols-[1fr_400px]">
+        <div class="flex flex-col items-start gap-6">
+          <div class="flex flex-wrap gap-3">
+            <span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-success text-success-foreground">On sale</span>
+            <span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-card text-foreground">Second edition</span>
+          </div>
+          <h1 class="type-display uppercase max-sm:type-h1">Pasar<br />Cetak</h1>
+          <p class="type-h3">21–22 Nov 2026</p>
+          <p class="max-w-xl type-body">Two days of risograph, letterpress, zines and screen print in Bandung: 64 maker tables, workshops, talks and a swap table. Bring paper, leave with a bag of prints.</p>
+          <p class="flex flex-wrap items-center gap-x-4 gap-y-1 type-mono text-muted-foreground">
+            <span>Gedung Cikapundung, Jl. Cikapundung Barat 12</span><span>10:00–20:00</span>
+          </p>
+          <div class="flex flex-wrap items-center gap-5 pt-2">
+            <a href="#tickets" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press bg-primary text-primary-foreground hover:bg-primary-hover">Get tickets<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+            <a href="#program" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press bg-card text-foreground hover:bg-accent">See the program</a>
+            <button type="button" id="calendar" aria-label="Add to calendar" class="inline-flex size-12 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v4"/><path d="M16 2v4"/><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="M16 19h6"/><path d="M19 16v6"/></svg></button>
+            <button type="button" id="share" aria-label="Copy link" class="inline-flex size-12 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/></svg></button>
+          </div>
+        </div>
+
+        <!-- The poster: four fills, the dates and two stickers. -->
+        <div class="relative mx-auto w-full max-w-[400px] pt-4 pr-3" aria-hidden="true">
+          <div class="grid aspect-square grid-cols-2 grid-rows-2 border-3 border-border bg-card shadow-sm">
+            <div class="flex items-end border-r-3 border-b-3 border-border bg-primary p-4 text-primary-foreground"><span class="type-display">21</span></div>
+            <div class="flex items-end border-b-3 border-border bg-pink p-4 text-pink-foreground"><span class="type-display">22</span></div>
+            <div class="flex items-start border-r-3 border-border bg-blue p-4 text-blue-foreground"><span class="type-h2 uppercase">Nov</span></div>
+            <div class="flex flex-col justify-between bg-mint p-4 text-mint-foreground">
+              <span class="type-label">Bandung</span>
+              <span class="flex gap-2"><span class="size-6 bg-mint-foreground"></span><span class="size-6 border-2 border-mint-foreground"></span><span class="size-6 bg-mint-foreground"></span></span>
+            </div>
+          </div>
+          <span class="absolute top-0 -right-1 rotate-6 inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs bg-mint text-mint-foreground">From Rp45.000</span>
+          <span class="absolute -bottom-5 -left-3 inline-block -rotate-6 border-3 border-border bg-foreground px-4 py-2 type-h3 whitespace-nowrap text-background uppercase shadow-sm">2 days</span>
+        </div>
+      </section>
+
+      <!-- Topics -->
+      <div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground">
+        <p class="sr-only">Risograph, letterpress, zines, screen print, linocut, bookbinding, photocopy.</p>
+        <ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Risograph<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Letterpress<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Zines<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Screen print<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Linocut<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Bookbinding<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Photocopy<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Risograph<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Letterpress<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Zines<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Screen print<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Linocut<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Bookbinding<span class="size-3 bg-primary-foreground"></span></li>
+          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Photocopy<span class="size-3 bg-primary-foreground"></span></li>
+        </ul>
+      </div>
+
+      <!-- Program -->
+      <section id="program" aria-labelledby="program-title" class="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-12">
+        <div class="flex flex-wrap items-end justify-between gap-6">
+          <div class="flex flex-col gap-2">
+            <h2 id="program-title" class="type-h2 uppercase">Program</h2>
+            <p class="type-small text-muted-foreground">Talks and the market are open to every pass. Workshops take a seat; book one with a Maker pass.</p>
+          </div>
+          <div role="tablist" aria-label="Day" class="inline-flex divide-x-2 divide-border border-2 border-border bg-card shadow-xs">
+            <button type="button" role="tab" id="tab-sat" aria-selected="true" aria-controls="day-sat" class="h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background">Sat 21 Nov</button>
+            <button type="button" role="tab" id="tab-sun" aria-selected="false" aria-controls="day-sun" tabindex="-1" class="h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background">Sun 22 Nov</button>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-6">
+          <div id="kinds" role="group" aria-label="Kind of session" class="flex flex-wrap gap-3">
+            <button type="button" aria-pressed="true" data-kind="all" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">All</button>
+            <button type="button" aria-pressed="false" data-kind="workshop" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">Workshops</button>
+            <button type="button" aria-pressed="false" data-kind="talk" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">Talks</button>
+            <button type="button" aria-pressed="false" data-kind="market" class="h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background">Market</button>
+          </div>
+          <div class="flex items-center gap-4">
+            <button type="button" role="switch" id="open-only" aria-checked="false" aria-labelledby="open-only-label" class="group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none"><span class="absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6"></span></button>
+            <span id="open-only-label" class="type-ui">Hide full workshops</span>
+          </div>
+        </div>
+
+        <div id="day-sat" role="tabpanel" aria-labelledby="tab-sat" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <article data-kind="workshop" class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Workshop</h3><span class="type-caption">10:30–12:30</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">Riso in two colours</p>
+              <p class="type-small text-muted-foreground">Sekar Ayu Lestari, Studio Nyala. Split a drawing into two layers and print 20 copies in pink and blue.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="type-mono">8 seats left</span><button type="button" data-book class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent">Book</button></div>
+            </div>
+          </article>
+          <article data-kind="talk" class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-pink px-4 py-3 text-pink-foreground"><h3 class="type-label">Talk</h3><span class="type-caption">13:00–14:00</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">A zine for under Rp200.000</p>
+              <p class="type-small text-muted-foreground">Dimas Prasetyo on paper, binding and photocopy prices for a first run of 50.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="type-mono">Hall B</span><span class="type-caption text-muted-foreground">Open seating</span></div>
+            </div>
+          </article>
+          <article data-kind="workshop" data-full class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Workshop</h3><span class="type-caption">14:30–16:30</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">Linocut postcards</p>
+              <p class="type-small text-muted-foreground">Laras Wulandari. Carve one block, print a set of six cards on kraft paper.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="inline-flex h-7 items-center border-2 border-border px-2.5 type-label bg-foreground text-background">Full</span><button type="button" disabled class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent">Book</button></div>
+            </div>
+          </article>
+          <article data-kind="market" class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-mint px-4 py-3 text-mint-foreground"><h3 class="type-label">Market</h3><span class="type-caption">17:00–20:00</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">Zine swap table</p>
+              <p class="type-small text-muted-foreground">Bring five copies of anything you made and leave with five from someone else.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="type-mono">Courtyard</span><span class="type-caption text-muted-foreground">Free</span></div>
+            </div>
+          </article>
+        </div>
+
+        <div id="day-sun" role="tabpanel" aria-labelledby="tab-sun" hidden class="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <article data-kind="workshop" class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Workshop</h3><span class="type-caption">10:30–12:30</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">Screen print a tote</p>
+              <p class="type-small text-muted-foreground">Ujang Hermawan, Sablon Cimahi. One colour, one bag, and the screen to take home.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="type-mono">5 seats left</span><button type="button" data-book class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent">Book</button></div>
+            </div>
+          </article>
+          <article data-kind="talk" class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-pink px-4 py-3 text-pink-foreground"><h3 class="type-label">Talk</h3><span class="type-caption">13:00–14:00</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">Type from old print shops</p>
+              <p class="type-small text-muted-foreground">Rahmat Hidayat shows the wood and metal type he found in Pasar Baru shop houses.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="type-mono">Hall B</span><span class="type-caption text-muted-foreground">Open seating</span></div>
+            </div>
+          </article>
+          <article data-kind="workshop" class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Workshop</h3><span class="type-caption">14:30–16:30</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">Photocopy collage</p>
+              <p class="type-small text-muted-foreground">Intan Permata. Cut, paste and copy a four-page zine on the fair's own machine.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="type-mono">12 seats left</span><button type="button" data-book class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent">Book</button></div>
+            </div>
+          </article>
+          <article data-kind="market" class="flex w-full flex-col border-3 border-border bg-card shadow-sm">
+            <header class="flex items-center justify-between gap-3 border-b-3 border-border bg-mint px-4 py-3 text-mint-foreground"><h3 class="type-label">Market</h3><span class="type-caption">10:00–18:00</span></header>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <p class="type-title">Paper by the kilo</p>
+              <p class="type-small text-muted-foreground">Off-cuts and end rolls from three Bandung printers, sold by weight until they run out.</p>
+              <div class="mt-auto flex items-center justify-between pt-1"><span class="type-mono">Hall A</span><span class="type-caption text-muted-foreground">Rp20.000 / kg</span></div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Tickets -->
+      <section id="tickets" aria-labelledby="tickets-title" class="border-y-3 border-border bg-card">
+        <div class="mx-auto flex max-w-6xl flex-col gap-8 px-6 py-12">
+          <div class="flex flex-wrap items-end justify-between gap-6">
+            <div class="flex flex-col gap-2">
+              <h2 id="tickets-title" class="type-h2 uppercase">Tickets</h2>
+              <p class="type-small text-muted-foreground">Every pass includes the program book. Children under 12 come in free.</p>
+            </div>
+            <div class="w-full max-w-sm">
+              <div class="flex items-baseline justify-between"><span class="type-ui">Early-bird passes sold</span><span class="type-mono">412 / 500</span></div>
+              <div role="progressbar" aria-label="Early-bird passes sold" aria-valuenow="412" aria-valuemin="0" aria-valuemax="500" class="mt-2 h-5 w-full border-2 border-border bg-card"><div class="h-full w-[82%] border-r-2 border-border bg-primary"></div></div>
+            </div>
+          </div>
+
+          <div class="grid items-start gap-8 pt-2 md:grid-cols-3">
+            <article class="relative flex w-full flex-col border-3 border-border bg-card shadow-sm">
+              <header class="border-b-3 border-border bg-mint px-5 py-3 text-mint-foreground"><h3 class="type-label">Day pass</h3></header>
+              <div class="flex flex-col gap-4 p-5">
+                <p class="flex flex-wrap items-baseline gap-x-2"><span class="type-h3 whitespace-nowrap">Rp45.000</span><span class="type-caption text-muted-foreground">one day</span></p>
+                <ul class="flex flex-col gap-2 type-small">
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Saturday or Sunday</li>
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Every talk and the market</li>
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>The program book</li>
+                </ul>
+                <button type="button" data-tier="Day pass" data-price="Rp45.000" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none w-full bg-card text-foreground hover:bg-accent">Choose</button>
+              </div>
+            </article>
+            <article class="relative flex w-full flex-col border-3 border-border bg-card shadow-sm">
+              <span class="absolute -top-4 -right-3 rotate-6 inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs bg-pink text-pink-foreground">Best value</span>
+              <header class="border-b-3 border-border bg-mint px-5 py-3 text-mint-foreground"><h3 class="type-label">Weekend pass</h3></header>
+              <div class="flex flex-col gap-4 p-5">
+                <p class="flex flex-wrap items-baseline gap-x-2"><span class="type-h3 whitespace-nowrap">Rp75.000</span><span class="type-caption text-muted-foreground">both days</span></p>
+                <ul class="flex flex-col gap-2 type-small">
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Saturday and Sunday</li>
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Every talk and the market</li>
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>The program book and a tote</li>
+                </ul>
+                <button type="button" data-tier="Weekend pass" data-price="Rp75.000" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none w-full bg-primary text-primary-foreground hover:bg-primary-hover">Choose</button>
+              </div>
+            </article>
+            <article class="relative flex w-full flex-col border-3 border-border bg-card shadow-sm">
+              <header class="border-b-3 border-border bg-mint px-5 py-3 text-mint-foreground"><h3 class="type-label">Maker pass</h3></header>
+              <div class="flex flex-col gap-4 p-5">
+                <p class="flex flex-wrap items-baseline gap-x-2"><span class="type-h3 whitespace-nowrap">Rp180.000</span><span class="type-caption text-muted-foreground">both days</span></p>
+                <ul class="flex flex-col gap-2 type-small">
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Everything in the weekend pass</li>
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Two workshop seats</li>
+                  <li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Paper and ink included</li>
+                </ul>
+                <button type="button" data-tier="Maker pass" data-price="Rp180.000" class="inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none w-full bg-card text-foreground hover:bg-accent">Choose</button>
+              </div>
+            </article>
+          </div>
+
+          <div id="toast" role="status" hidden class="flex w-full max-w-sm items-start gap-3 border-2 border-l-8 border-border border-l-mint bg-card py-3 pr-2 pl-4 shadow-lg md:ml-auto">
+            <div class="flex min-w-0 flex-1 flex-col items-start gap-1">
+              <p class="type-ui" id="toast-title">Weekend pass added</p>
+              <p class="type-caption text-muted-foreground" id="toast-body">1 × Rp75.000 · pay at checkout</p>
+              <button type="button" id="undo" class="mt-2 h-9 border-2 border-border bg-card px-3 type-ui shadow-xs blok-press hover:bg-accent">Undo</button>
+            </div>
+            <button type="button" data-dismiss aria-label="Dismiss" class="inline-flex size-9 shrink-0 items-center justify-center text-foreground hover:bg-accent"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Visit and questions -->
+      <section class="mx-auto grid max-w-6xl gap-12 px-6 py-12 lg:grid-cols-2">
+        <div id="visit" class="flex flex-col gap-6">
+          <h2 class="type-h2 uppercase">Visit</h2>
+          <ul class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs">
+            <li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">Sat</span><span class="type-ui">10:00–20:00</span><span class="ml-auto type-label">Swap at 17:00</span></li>
+            <li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">Sun</span><span class="type-ui">10:00–18:00</span><span class="ml-auto type-label">Paper market</span></li>
+            <li class="flex items-center gap-4 px-4 py-3"><span class="type-mono text-muted-foreground">Map</span><span class="type-ui">Jl. Cikapundung Barat 12, Bandung</span></li>
+          </ul>
+          <ol class="flex w-full flex-col">
+            <li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-foreground text-background" aria-hidden="true">1</span><div><p class="type-ui">Buy a pass online</p><p class="type-caption text-muted-foreground">QRIS, bank transfer or card</p></div></li>
+            <li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-primary text-primary-foreground" aria-hidden="true">2</span><div><p class="type-ui">Show the QR code at the door</p><p class="type-caption text-muted-foreground">It arrives by email within a minute</p></div></li>
+            <li class="relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden"><span class="flex size-8 shrink-0 items-center justify-center border-2 border-border type-label bg-card text-foreground" aria-hidden="true">3</span><div><p class="type-ui">Wear the wristband both days</p><p class="type-caption text-muted-foreground">Weekend and Maker passes only</p></div></li>
+          </ol>
+        </div>
+
+        <div id="faq" class="flex flex-col gap-6">
+          <h2 class="type-h2 uppercase">Questions</h2>
+          <div class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs">
+            <details class="group" open>
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden">Can I bring my own paper?<span class="flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></span></summary>
+              <p class="px-4 pb-4 type-small text-muted-foreground">Yes, up to A3 and 300 gsm. Coated paper does not take riso ink well; the workshop hosts will tell you what works.</p>
+            </details>
+            <details class="group">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden">How do I get a table at the market?<span class="flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></span></summary>
+              <p class="px-4 pb-4 type-small text-muted-foreground">All 64 tables are taken for this edition. Join the newsletter to hear when applications open for 2027.</p>
+            </details>
+            <details class="group">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden">Can I get a refund?<span class="flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg></span></summary>
+              <p class="px-4 pb-4 type-small text-muted-foreground">Until 13 November. After that you can pass your ticket on: change the name in the email you received.</p>
+            </details>
+          </div>
+          <div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-warning p-4 text-warning-foreground shadow-xs">
+            <span class="mt-0.5 shrink-0"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
+            <div class="flex flex-col gap-1"><p class="type-ui">Passes cost more at the door</p><p class="type-small">A day pass is Rp55.000 at the door, cash only. Online it is Rp45.000 and skips the queue.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter -->
+      <section aria-labelledby="news-title" class="border-y-3 border-border bg-pink text-pink-foreground">
+        <div class="mx-auto grid max-w-6xl items-center gap-8 px-6 py-10 md:grid-cols-[1fr_440px]">
+          <div class="flex flex-col items-start gap-4">
+            <h2 id="news-title" class="type-h2 uppercase">Hear it first</h2>
+            <p class="max-w-lg type-body">Workshop seats open to subscribers two days before everyone else.</p>
+          </div>
+          <form id="newsletter" class="flex w-full flex-col gap-3 border-3 border-border bg-card p-5 text-card-foreground shadow-sm">
+            <label for="newsletter-email" class="type-ui">Email</label>
+            <div class="@container"><div class="flex flex-col shadow-xs @xs:flex-row"><input id="newsletter-email" type="email" required placeholder="name@example.com" class="h-12 min-w-0 border-2 border-input bg-card px-4 text-base placeholder:text-muted-foreground @xs:flex-1" /><button type="submit" class="h-12 shrink-0 border-2 border-t-0 border-border bg-primary px-5 text-base font-bold text-primary-foreground transition-colors hover:bg-primary-hover @xs:border-t-2 @xs:border-l-0">Subscribe</button></div></div>
+            <p id="newsletter-note" class="type-caption text-muted-foreground">One email a week until the fair, then one a month.</p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-foreground text-background">
+      <div class="mx-auto flex max-w-6xl flex-wrap items-end justify-between gap-6 px-6 py-10">
+        <div class="flex flex-col gap-2">
+          <p class="type-h3 uppercase">Pasar Cetak</p>
+          <p class="type-caption">Organised by Kolektif Cetak Bandung · halo@pasarcetak.id</p>
+        </div>
+        <nav aria-label="Footer" class="flex flex-wrap gap-x-6 gap-y-2">
+          <a href="#program" class="type-ui underline-offset-4 hover:underline">Program</a>
+          <a href="#tickets" class="type-ui underline-offset-4 hover:underline">Tickets</a>
+          <a href="#visit" class="type-ui underline-offset-4 hover:underline">Visit</a>
+          <a href="#faq" class="type-ui underline-offset-4 hover:underline">FAQ</a>
+        </nav>
+      </div>
+    </footer>
+
+    <script>
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
+      const tabs = $$('[role=tab]');
+      const toast = $('#toast');
+      let kind = 'all';
+
+      // Which session cards show: the day's panel, the kind chip and the "hide full" switch.
+      const filter = () => {
+        const hideFull = $('#open-only').getAttribute('aria-checked') === 'true';
+        for (const card of $$('[role=tabpanel] article')) {
+          card.hidden = (kind !== 'all' && card.dataset.kind !== kind) || (hideFull && card.hasAttribute('data-full'));
+        }
+      };
+
+      const select = (tab) => {
+        for (const t of tabs) {
+          const on = t === tab;
+          t.setAttribute('aria-selected', on);
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        }
+      };
+      for (const tab of tabs) tab.addEventListener('click', () => select(tab));
+      $('[role=tablist]').addEventListener('keydown', (event) => {
+        if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+        const next = tabs[(tabs.indexOf(event.target) + 1) % tabs.length];
+        next.focus();
+        select(next);
+      });
+
+      $('#kinds').addEventListener('click', (event) => {
+        const chip = event.target.closest('button');
+        if (!chip) return;
+        for (const b of $$('button', event.currentTarget)) b.setAttribute('aria-pressed', b === chip);
+        kind = chip.dataset.kind;
+        filter();
+      });
+
+      $('#open-only').addEventListener('click', (event) => {
+        const sw = event.currentTarget;
+        sw.setAttribute('aria-checked', sw.getAttribute('aria-checked') !== 'true');
+        filter();
+      });
+
+      for (const book of $$('[data-book]')) {
+        book.addEventListener('click', () => {
+          const booked = book.getAttribute('aria-pressed') !== 'true';
+          book.setAttribute('aria-pressed', booked);
+          book.textContent = booked ? 'Booked' : 'Book';
+        });
+      }
+
+      for (const choose of $$('[data-tier]')) {
+        choose.addEventListener('click', () => {
+          $('#toast-title').textContent = `${choose.dataset.tier} added`;
+          $('#toast-body').textContent = `1 × ${choose.dataset.price} · pay at checkout`;
+          toast.hidden = false;
+        });
+      }
+      $('#undo').addEventListener('click', () => (toast.hidden = true));
+      $('[data-dismiss]').addEventListener('click', () => (toast.hidden = true));
+
+      $('#newsletter').addEventListener('submit', (event) => {
+        event.preventDefault();
+        $('#newsletter-note').textContent = `Done. The program goes to ${$('#newsletter-email').value} on 1 November.`;
+      });
+
+      // A calendar file for both days, made in the page.
+      $('#calendar').addEventListener('click', () => {
+        const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Pasar Cetak//EN', 'BEGIN:VEVENT', 'UID:pasar-cetak-2026', 'DTSTAMP:20261014T000000Z', 'DTSTART;VALUE=DATE:20261121', 'DTEND;VALUE=DATE:20261123', 'SUMMARY:Pasar Cetak', 'LOCATION:Gedung Cikapundung, Jl. Cikapundung Barat 12, Bandung', 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+        const link = Object.assign(document.createElement('a'), { href: URL.createObjectURL(new Blob([ics], { type: 'text/calendar' })), download: 'pasar-cetak-2026.ics' });
+        link.click();
+        URL.revokeObjectURL(link.href);
+      });
+
+      $('#share').addEventListener('click', async (event) => {
+        const button = event.currentTarget;
+        try {
+          await navigator.clipboard.writeText(location.href);
+          button.setAttribute('aria-label', 'Link copied');
+        } catch {
+          button.setAttribute('aria-label', 'Copy link (not available here)');
+        }
+        button.setAttribute('aria-pressed', 'true');
+        setTimeout(() => {
+          button.removeAttribute('aria-pressed');
+          button.setAttribute('aria-label', 'Copy link');
+        }, 1200);
+      });
+    </script>
+  </body>
+</html>

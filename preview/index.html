@@ -42,8 +42,11 @@
         sun: icon('<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>', 20),
         moon: icon('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>', 20),
         arrow: icon('<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>'),
+        trash: icon('<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>'),
         share: icon('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>', 20),
-        calendar: icon('<path d="M8 2v4"/><path d="M16 2v4"/><path d="M21 13V6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h8"/><path d="M3 10h18"/><path d="M16 19h6"/><path d="M19 16v6"/>', 20),
+        add: icon('<path d="M5 12h14"/><path d="M12 5v14"/>', 20),
+        edit: icon('<path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/>', 20),
+        chevron: icon('<path d="m9 18 6-6-6-6"/>'),
         x: icon('<path d="M18 6 6 18"/><path d="m6 6 12 12"/>'),
         plus: icon('<path d="M5 12h14"/><path d="M12 5v14"/>'),
         minus: icon('<path d="M5 12h14"/>'),
@@ -53,100 +56,121 @@
 
       const button =
         'inline-flex h-12 items-center justify-center gap-2 border-2 border-border px-6 text-base font-bold shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none';
-      const iconButton = 'inline-flex size-12 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent';
+      const buttonSmall =
+        'inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none';
+      const ghost = 'inline-flex h-12 items-center justify-center gap-2 border-2 border-transparent px-6 text-base font-bold text-foreground transition-colors hover:border-border hover:bg-accent';
+      const iconButton =
+        'inline-flex size-12 items-center justify-center border-2 border-border bg-card text-foreground shadow-xs blok-press hover:bg-accent disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none';
+      const toggle =
+        'group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none';
+      const thumb = 'absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6';
       const chip =
         'h-10 shrink-0 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent aria-pressed:bg-foreground aria-pressed:text-background';
+      const field =
+        'mt-2 h-12 w-full border-2 border-input bg-card px-4 text-base shadow-xs placeholder:text-muted-foreground disabled:opacity-40 disabled:shadow-none';
       const tab = 'h-11 px-5 type-ui text-foreground transition-colors hover:bg-accent aria-selected:bg-foreground aria-selected:text-background';
       const badge = 'inline-flex h-7 items-center border-2 border-border px-2.5 type-label';
-      const option = 'flex w-full items-center gap-3 type-small';
+      const option = 'flex w-full items-center gap-3 type-small has-disabled:text-muted-foreground';
       const row = 'flex items-center gap-4 px-4 py-3';
       const step = 'relative flex gap-4 pb-6 before:absolute before:top-8 before:bottom-0 before:left-[15px] before:w-0.5 before:bg-border last:pb-0 last:before:hidden';
       const stepNumber = 'flex size-8 shrink-0 items-center justify-center border-2 border-border type-label';
       const summary = 'flex cursor-pointer list-none items-center justify-between gap-4 px-4 py-3 type-ui [&::-webkit-details-marker]:hidden';
       const summaryIcon = 'flex size-6 shrink-0 items-center justify-center border-2 border-border bg-primary text-primary-foreground [&>svg:first-child]:group-open:hidden [&>svg:last-child]:hidden [&>svg:last-child]:group-open:block';
       const sticker = 'inline-block border-2 border-border px-3 py-1.5 type-label whitespace-nowrap shadow-xs';
+      const bullet = 'flex items-center gap-3';
       const marqueeItem = 'flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase';
-      const marqueeItems2 = `<li class="${marqueeItem}">80 booths<span class="size-3 bg-background"></span></li><li class="${marqueeItem}">12 workshops<span class="size-3 bg-background"></span></li><li class="${marqueeItem}">3 days<span class="size-3 bg-background"></span></li>`;
-      const marqueeItems = `<li class="${marqueeItem}">Pasar Cetak<span class="size-3 bg-foreground"></span></li><li class="${marqueeItem}">20–22 Nov 2026<span class="size-3 bg-foreground"></span></li><li class="${marqueeItem}">Bandung<span class="size-3 bg-foreground"></span></li><li class="${marqueeItem}">Tickets on sale<span class="size-3 bg-foreground"></span></li>`;
+      const marqueeItems = ['New', 'Label', 'Label', 'Label'].map((word) => `<li class="${marqueeItem}">${word}<span class="size-3 bg-primary-foreground"></span></li>`).join('');
+      const marqueeItems2 = ['Label', 'Label', 'Label'].map((word) => `<li class="${marqueeItem}">${word}<span class="size-3 bg-background"></span></li>`).join('');
 
       const components = [
         {
           name: 'Button',
           category: 'Actions',
-          html: `<div class="flex flex-wrap items-center justify-center gap-5"><button type="button" class="${button} bg-primary text-primary-foreground hover:bg-primary-hover">Get tickets${icons.arrow}</button><button type="button" class="${button} bg-secondary text-secondary-foreground">Schedule</button><button type="button" class="${button} bg-card text-foreground hover:bg-accent">Share</button></div>`,
+          html: `<div class="flex flex-col items-center gap-5"><button type="button" class="${button} bg-primary text-primary-foreground hover:bg-primary-hover">Continue${icons.arrow}</button><button type="button" class="${button} bg-secondary text-secondary-foreground">Save</button><button type="button" class="${button} bg-card text-foreground hover:bg-accent">Cancel</button></div>`,
         },
         {
           name: 'Marquee',
           category: 'Content',
           bleed: true,
-          html: `<div class="flex w-full flex-col gap-6"><div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground"><p class="sr-only">Pasar Cetak, 20 to 22 November 2026, Bandung. Tickets on sale.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">${marqueeItems}${marqueeItems}</ul></div><div class="w-full overflow-hidden border-y-3 border-border bg-foreground py-3 text-background"><p class="sr-only">80 booths, 12 workshops, 3 days.</p><ul aria-hidden="true" class="flex w-max animate-marquee [animation-direction:reverse] motion-reduce:animate-none hover:[animation-play-state:paused]">${marqueeItems2}${marqueeItems2}</ul></div></div>`,
+          html: `<div class="flex w-full flex-col gap-6"><div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground"><p class="sr-only">New. Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">${marqueeItems}${marqueeItems}</ul></div><div class="w-full overflow-hidden border-y-3 border-border bg-foreground py-3 text-background"><p class="sr-only">Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee [animation-direction:reverse] motion-reduce:animate-none hover:[animation-play-state:paused]">${marqueeItems2}${marqueeItems2}</ul></div></div>`,
         },
         {
           name: 'Pricing tier',
           category: 'Content',
-          html: `<article class="relative flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><span class="absolute -top-4 -right-3 rotate-6 ${sticker} bg-pink text-pink-foreground">Best value</span><header class="border-b-3 border-border bg-mint px-5 py-3 text-mint-foreground"><h3 class="type-label">Weekend pass</h3></header><div class="flex flex-col gap-4 p-5"><p class="flex flex-wrap items-baseline gap-x-2"><span class="type-h3 whitespace-nowrap">Rp120.000</span><span class="type-caption text-muted-foreground">3 days</span></p><ul class="flex flex-col gap-2 type-small"><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Friday to Sunday</li><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>One workshop seat</li><li class="flex items-center gap-3"><span class="size-2 shrink-0 bg-foreground"></span>Tote bag and the zine</li></ul><button type="button" class="${button} w-full bg-primary text-primary-foreground hover:bg-primary-hover">Choose</button></div></article>`,
+          html: `<article class="relative flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><span class="absolute -top-4 -right-3 rotate-6 ${sticker} bg-pink text-pink-foreground">Label</span><header class="border-b-3 border-border bg-mint px-5 py-3 text-mint-foreground"><h3 class="type-label">Plan name</h3></header><div class="flex flex-col gap-4 p-5"><p class="flex flex-wrap items-baseline gap-x-2"><span class="type-h3 whitespace-nowrap">00</span><span class="type-caption text-muted-foreground">per month</span></p><ul class="flex flex-col gap-2 type-small"><li class="${bullet}"><span class="size-2 shrink-0 bg-foreground"></span>A feature in one line</li><li class="${bullet}"><span class="size-2 shrink-0 bg-foreground"></span>A second feature</li><li class="${bullet}"><span class="size-2 shrink-0 bg-foreground"></span>A third feature</li></ul><button type="button" class="${button} w-full bg-primary text-primary-foreground hover:bg-primary-hover">Choose</button></div></article>`,
         },
         {
           name: 'Toggle',
           category: 'Input',
           stateful: true,
-          html: `<div class="flex flex-col gap-5"><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="true" aria-labelledby="reminders" class="group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none"><span class="absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6"></span></button><span id="reminders" class="type-ui">Email reminders</span></div><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="false" aria-labelledby="soldout" class="group relative h-8 w-14 shrink-0 border-2 border-border bg-card shadow-xs blok-press aria-checked:bg-primary disabled:opacity-40 disabled:shadow-none"><span class="absolute top-0.5 left-0.5 size-6 bg-foreground transition-transform group-aria-checked:translate-x-6"></span></button><span id="soldout" class="type-ui">Show sold-out events</span></div></div>`,
+          html: `<div class="flex flex-col gap-5"><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="true" aria-labelledby="toggle-on" class="${toggle}"><span class="${thumb}"></span></button><span id="toggle-on" class="type-ui">Notifications</span></div><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="false" aria-labelledby="toggle-off" class="${toggle}"><span class="${thumb}"></span></button><span id="toggle-off" class="type-ui">Email updates</span></div><div class="flex items-center gap-4"><button type="button" role="switch" aria-checked="false" aria-labelledby="toggle-disabled" disabled class="${toggle}"><span class="${thumb}"></span></button><span id="toggle-disabled" class="type-ui text-muted-foreground">Disabled</span></div></div>`,
+        },
+        {
+          name: 'Button variants',
+          category: 'Actions',
+          html: `<div class="flex flex-col items-center gap-5"><button type="button" class="${button} bg-destructive text-destructive-foreground">${icons.trash}Delete</button><button type="button" class="${ghost}">Skip</button><button type="button" class="${buttonSmall} bg-card text-foreground hover:bg-accent">Small</button><button type="button" disabled class="${button} bg-primary text-primary-foreground hover:bg-primary-hover">Disabled</button></div>`,
         },
         {
           name: 'Icon button',
           category: 'Actions',
-          html: `<div class="flex items-center gap-5"><button type="button" aria-label="Share" class="${iconButton}">${icons.share}</button><button type="button" aria-label="Add to calendar" class="${iconButton.replace('bg-card text-foreground', 'bg-primary text-primary-foreground').replace('hover:bg-accent', 'hover:bg-primary-hover')}">${icons.calendar}</button><button type="button" aria-label="Close" class="${iconButton.replace('size-12', 'size-10')}">${icons.x}</button></div>`,
+          html: `<div class="flex flex-wrap items-center justify-center gap-5"><button type="button" aria-label="Add" class="${iconButton.replace('bg-card text-foreground', 'bg-primary text-primary-foreground').replace('hover:bg-accent', 'hover:bg-primary-hover')}">${icons.add}</button><button type="button" aria-label="Share" class="${iconButton}">${icons.share}</button><button type="button" aria-label="Close" class="${iconButton.replace('size-12', 'size-10')}">${icons.x}</button><button type="button" aria-label="Edit" disabled class="${iconButton}">${icons.edit}</button></div>`,
         },
         {
           name: 'Chip',
           category: 'Input',
           stateful: true,
-          html: `<div role="group" aria-label="Programme" class="flex flex-wrap justify-center gap-3"><button type="button" aria-pressed="true" class="${chip}">All</button><button type="button" aria-pressed="false" class="${chip}">Riso</button><button type="button" aria-pressed="false" class="${chip}">Letterpress</button><button type="button" aria-pressed="false" class="${chip}">Zines</button><button type="button" aria-pressed="false" class="${chip}">Talks</button></div>`,
+          html: `<div role="group" aria-label="Options" class="flex flex-wrap justify-center gap-3"><button type="button" aria-pressed="true" class="${chip}">All</button><button type="button" aria-pressed="false" class="${chip}">Option A</button><button type="button" aria-pressed="false" class="${chip}">Option B</button><button type="button" aria-pressed="false" class="${chip}">Option C</button></div>`,
         },
         {
           name: 'Slider',
           category: 'Input',
           stateful: true,
-          html: `<label class="block w-full"><span class="flex items-baseline justify-between"><span class="type-ui">Print run</span><output class="type-mono">120 copies</output></span><input type="range" min="20" max="500" step="10" value="120" data-unit="copies" class="mt-3 blok-slider" /></label>`,
+          html: `<div class="flex w-full flex-col gap-6"><label class="block w-full"><span class="flex items-baseline justify-between"><span class="type-ui">Volume</span><output class="type-mono">40</output></span><input type="range" min="0" max="100" step="1" value="40" class="mt-3 blok-slider" /></label><label class="block w-full"><span class="flex items-baseline justify-between text-muted-foreground"><span class="type-ui">Disabled</span><output class="type-mono">70</output></span><input type="range" min="0" max="100" step="1" value="70" disabled class="mt-3 blok-slider" /></label></div>`,
         },
         {
           name: 'Single selection',
           category: 'Input',
           stateful: true,
-          html: `<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Pass</legend><label class="${option}"><input type="radio" name="pass" checked class="blok-radio" />Day pass<span class="ml-auto type-mono text-muted-foreground">Rp50.000</span></label><label class="${option}"><input type="radio" name="pass" class="blok-radio" />Weekend pass<span class="ml-auto type-mono text-muted-foreground">Rp120.000</span></label><label class="${option}"><input type="radio" name="pass" class="blok-radio" />Maker pass<span class="ml-auto type-mono text-muted-foreground">Rp350.000</span></label></fieldset>`,
+          html: `<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Period</legend><label class="${option}"><input type="radio" name="period" checked class="blok-radio" />Day</label><label class="${option}"><input type="radio" name="period" class="blok-radio" />Week</label><label class="${option}"><input type="radio" name="period" class="blok-radio" />Month</label><label class="${option}"><input type="radio" name="period" disabled class="blok-radio" />Disabled</label></fieldset>`,
         },
         {
           name: 'Checkbox',
           category: 'Input',
           stateful: true,
-          html: `<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Add-ons</legend><label class="${option}"><input type="checkbox" checked class="blok-checkbox" />Workshop seat</label><label class="${option}"><input type="checkbox" class="blok-checkbox" />Printed programme</label><label class="${option}"><input type="checkbox" checked class="blok-checkbox" />Weekly email</label></fieldset>`,
+          html: `<fieldset class="flex w-full flex-col gap-4"><legend class="mb-4 type-ui">Notifications</legend><label class="${option}"><input type="checkbox" checked class="blok-checkbox" />Email</label><label class="${option}"><input type="checkbox" class="blok-checkbox" />Push</label><label class="${option}"><input type="checkbox" checked class="blok-checkbox" />Weekly summary</label><label class="${option}"><input type="checkbox" disabled class="blok-checkbox" />Disabled</label></fieldset>`,
         },
         {
           name: 'Text field',
           category: 'Input',
           stateful: true,
-          html: `<label class="block w-full"><span class="type-ui">Email</span><input type="email" placeholder="you@studio.id" class="mt-2 h-12 w-full border-2 border-input bg-card px-4 text-base shadow-xs placeholder:text-muted-foreground disabled:opacity-40 disabled:shadow-none" /><span class="mt-3 block type-caption text-muted-foreground">Your ticket is sent here.</span></label>`,
+          html: `<label class="block w-full"><span class="type-ui">Email</span><input type="email" placeholder="name@example.com" class="${field}" /><span class="mt-3 block type-caption text-muted-foreground">Supporting text for the field.</span></label>`,
+        },
+        {
+          name: 'Text field states',
+          category: 'Input',
+          stateful: true,
+          html: `<div class="flex w-full flex-col gap-6"><label class="block w-full"><span class="type-ui">Email</span><input type="email" value="name@example" aria-invalid="true" aria-describedby="field-error" class="${field.replace('border-input', 'border-destructive')}" /><span id="field-error" class="mt-3 inline-block bg-destructive px-2 py-0.5 type-caption text-destructive-foreground">Enter a full email address.</span></label><label class="block w-full"><span class="type-ui text-muted-foreground">Name</span><input type="text" placeholder="Disabled" disabled class="${field}" /></label></div>`,
         },
         {
           name: 'Tabs',
           category: 'Navigation',
           stateful: true,
-          html: `<div role="tablist" aria-label="Day" class="inline-flex divide-x-2 divide-border border-2 border-border bg-card shadow-xs"><button type="button" role="tab" aria-selected="true" class="${tab}">Fri</button><button type="button" role="tab" aria-selected="false" class="${tab}">Sat</button><button type="button" role="tab" aria-selected="false" class="${tab}">Sun</button></div>`,
+          html: `<div role="tablist" aria-label="Period" class="inline-flex divide-x-2 divide-border border-2 border-border bg-card shadow-xs"><button type="button" role="tab" aria-selected="true" class="${tab}">Day</button><button type="button" role="tab" aria-selected="false" class="${tab}">Week</button><button type="button" role="tab" aria-selected="false" class="${tab}">Month</button></div>`,
         },
         {
           name: 'Badge',
           category: 'Feedback',
-          html: `<div class="flex flex-wrap justify-center gap-3"><span class="${badge} bg-mint text-mint-foreground">Free</span><span class="${badge} bg-pink text-pink-foreground">New</span><span class="${badge} bg-warning text-warning-foreground">Few left</span><span class="${badge} bg-foreground text-background">Sold out</span></div>`,
+          html: `<div class="flex flex-wrap justify-center gap-3"><span class="${badge} bg-success text-success-foreground">Active</span><span class="${badge} bg-warning text-warning-foreground">Pending</span><span class="${badge} bg-destructive text-destructive-foreground">Failed</span><span class="${badge} bg-card text-foreground">Draft</span><span class="${badge} bg-pink text-pink-foreground">New</span><span class="${badge} bg-foreground text-background">Closed</span></div>`,
         },
         {
           name: 'Progress',
           category: 'Feedback',
-          html: `<div class="w-full"><div class="flex items-baseline justify-between"><span class="type-ui">Booths taken</span><span class="type-mono">64 / 80</span></div><div role="progressbar" aria-label="Booths taken" aria-valuenow="64" aria-valuemin="0" aria-valuemax="80" class="mt-2 h-5 w-full border-2 border-border bg-card"><div class="h-full w-[80%] border-r-2 border-border bg-primary"></div></div></div>`,
+          html: `<div class="w-full"><div class="flex items-baseline justify-between"><span class="type-ui">Upload</span><span class="type-mono">64%</span></div><div role="progressbar" aria-label="Upload" aria-valuenow="64" aria-valuemin="0" aria-valuemax="100" class="mt-2 h-5 w-full border-2 border-border bg-card"><div class="h-full w-[64%] border-r-2 border-border bg-primary"></div></div></div>`,
         },
         {
           name: 'List',
           category: 'Content',
-          html: `<ul class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><li class="${row}"><span class="type-mono text-muted-foreground">10:00</span><span class="type-ui">Doors open</span></li><li class="${row}"><span class="type-mono text-muted-foreground">11:00</span><span class="type-ui">Riso 101</span><span class="ml-auto type-label">Hall A</span></li><li class="${row}"><span class="type-mono text-muted-foreground">14:00</span><span class="type-ui">Zine swap</span></li><li class="${row}"><span class="type-mono text-muted-foreground">19:00</span><span class="type-ui">Opening party</span></li></ul>`,
+          html: `<ul class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><li class="${row}"><span class="type-mono text-muted-foreground">01</span><span class="type-ui">Account</span><span class="ml-auto">${icons.chevron}</span></li><li class="${row}"><span class="type-mono text-muted-foreground">02</span><span class="type-ui">Notifications</span><span class="ml-auto type-label">On</span></li><li class="${row}"><span class="type-mono text-muted-foreground">03</span><span class="type-ui">Privacy</span><span class="ml-auto">${icons.chevron}</span></li></ul>`,
         },
         {
           name: 'Spinner',
@@ -156,40 +180,40 @@
         {
           name: 'Card',
           category: 'Content',
-          html: `<article class="flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Workshop</h3><span class="type-caption">Sat 21 · 11:00</span></header><div class="flex flex-col gap-3 p-5"><p class="type-title">Riso 101</p><p class="type-small text-muted-foreground">Two colours in one afternoon. Paper and ink are included; bring a sketch.</p><div class="flex items-center justify-between pt-1"><span class="type-mono">12 seats left</span><button type="button" class="h-10 border-2 border-border bg-card px-4 type-ui shadow-xs blok-press hover:bg-accent">Book</button></div></div></article>`,
+          html: `<article class="flex w-full max-w-xs flex-col border-3 border-border bg-card shadow-sm"><header class="flex items-center justify-between gap-3 border-b-3 border-border bg-blue px-4 py-3 text-blue-foreground"><h3 class="type-label">Label</h3><span class="type-caption">14 Oct 2026</span></header><div class="flex flex-col gap-3 p-5"><p class="type-title">Card title</p><p class="type-small text-muted-foreground">Supporting text that explains the item in a line or two.</p><div class="flex items-center justify-between pt-1"><span class="type-mono">1,234</span><button type="button" class="${buttonSmall} bg-card text-foreground hover:bg-accent">Open</button></div></div></article>`,
         },
         {
           name: 'Accordion',
           category: 'Navigation',
           stateful: true,
-          html: `<div class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><details class="group" open><summary class="${summary}">Can I bring my own paper?<span class="${summaryIcon}">${icons.plus}${icons.minus}</span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Yes, up to A3 and 300 gsm. Coated paper does not take riso ink well.</p></details><details class="group"><summary class="${summary}">Is there parking?<span class="${summaryIcon}">${icons.plus}${icons.minus}</span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Motorbikes in the yard; cars at the mall across the street.</p></details><details class="group"><summary class="${summary}">Can I get a refund?<span class="${summaryIcon}">${icons.plus}${icons.minus}</span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Until 13 November. After that you can pass your ticket to someone else.</p></details></div>`,
+          html: `<div class="w-full divide-y-2 divide-border border-2 border-border bg-card shadow-xs"><details class="group" open><summary class="${summary}">Section title<span class="${summaryIcon}">${icons.plus}${icons.minus}</span></summary><p class="px-4 pb-4 type-small text-muted-foreground">An open section shows its text here. One click on the title closes it again.</p></details><details class="group"><summary class="${summary}">Second section<span class="${summaryIcon}">${icons.plus}${icons.minus}</span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Supporting text that explains the item in a line or two.</p></details><details class="group"><summary class="${summary}">Third section<span class="${summaryIcon}">${icons.plus}${icons.minus}</span></summary><p class="px-4 pb-4 type-small text-muted-foreground">Supporting text that explains the item in a line or two.</p></details></div>`,
         },
         {
           name: 'Steps',
           category: 'Navigation',
-          html: `<ol class="flex w-full flex-col"><li class="${step}"><span class="${stepNumber} bg-foreground text-background" aria-hidden="true">1</span><div><p class="type-ui">Pick a pass</p><p class="type-caption text-muted-foreground">Weekend pass</p></div></li><li class="${step}" aria-current="step"><span class="${stepNumber} bg-primary text-primary-foreground" aria-hidden="true">2</span><div><p class="type-ui">Choose a workshop</p><p class="type-caption text-muted-foreground">Riso 101, 12 seats left</p></div></li><li class="${step}"><span class="${stepNumber} bg-card text-foreground" aria-hidden="true">3</span><div><p class="type-ui">Pay</p><p class="type-caption text-muted-foreground">Rp120.000</p></div></li></ol>`,
+          html: `<ol class="flex w-full flex-col"><li class="${step}"><span class="${stepNumber} bg-foreground text-background" aria-hidden="true">1</span><div><p class="type-ui">Account</p><p class="type-caption text-muted-foreground">Done</p></div></li><li class="${step}" aria-current="step"><span class="${stepNumber} bg-primary text-primary-foreground" aria-hidden="true">2</span><div><p class="type-ui">Details</p><p class="type-caption text-muted-foreground">Current step</p></div></li><li class="${step}"><span class="${stepNumber} bg-card text-foreground" aria-hidden="true">3</span><div><p class="type-ui">Confirm</p><p class="type-caption text-muted-foreground">Next</p></div></li></ol>`,
         },
         {
           name: 'Sticker',
           category: 'Content',
-          html: `<div class="flex flex-col items-center gap-8"><span class="inline-block -rotate-6 border-3 border-border bg-foreground px-4 py-2 type-h3 whitespace-nowrap text-background uppercase shadow-sm">Sold out</span><div class="flex gap-6"><span class="-rotate-3 ${sticker} bg-pink text-pink-foreground">Early bird</span><span class="rotate-3 ${sticker} bg-mint text-mint-foreground">Free on Friday</span></div></div>`,
+          html: `<div class="flex flex-col items-center gap-8"><span class="inline-block -rotate-6 border-3 border-border bg-foreground px-4 py-2 type-h3 whitespace-nowrap text-background uppercase shadow-sm">New</span><div class="flex gap-6"><span class="-rotate-3 ${sticker} bg-pink text-pink-foreground">Label</span><span class="rotate-3 ${sticker} bg-mint text-mint-foreground">Label</span></div></div>`,
         },
         {
           name: 'Callout',
           category: 'Feedback',
-          html: `<div class="flex w-full flex-col gap-4"><div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-mint p-4 text-mint-foreground shadow-xs"><span class="mt-0.5 shrink-0">${icons.info}</span><div class="flex flex-col gap-1"><p class="type-ui">Doors open at 10:00</p><p class="type-small">The hall closes at 21:00 on Saturday. The last workshop starts at 18:00.</p></div></div><div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-warning p-4 text-warning-foreground shadow-xs"><span class="mt-0.5 shrink-0">${icons.alert}</span><div class="flex flex-col gap-1"><p class="type-ui">Cash only at the door</p><p class="type-small">Online tickets are cheaper and skip the queue.</p></div></div></div>`,
+          html: `<div class="flex w-full flex-col gap-4"><div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-mint p-4 text-mint-foreground shadow-xs"><span class="mt-0.5 shrink-0">${icons.info}</span><div class="flex flex-col gap-1"><p class="type-ui">Callout title</p><p class="type-small">A callout points out one thing the reader should know.</p></div></div><div role="note" class="flex w-full items-start gap-3 border-2 border-border bg-warning p-4 text-warning-foreground shadow-xs"><span class="mt-0.5 shrink-0">${icons.alert}</span><div class="flex flex-col gap-1"><p class="type-ui">Warning</p><p class="type-small">A warning says what can go wrong and how to avoid it.</p></div></div></div>`,
         },
         {
           name: 'Newsletter',
           category: 'Input',
           stateful: true,
-          html: `<form class="flex w-full flex-col gap-3"><label for="newsletter-email" class="type-ui">Get the schedule by email</label><div class="flex shadow-xs"><input id="newsletter-email" type="email" placeholder="you@studio.id" class="h-12 min-w-0 flex-1 border-2 border-input bg-card px-4 text-base placeholder:text-muted-foreground" /><button type="submit" class="h-12 shrink-0 border-2 border-l-0 border-border bg-primary px-5 text-base font-bold text-primary-foreground transition-colors hover:bg-primary-hover">Join</button></div><p class="type-caption text-muted-foreground">One email a week until the fair.</p></form>`,
+          html: `<form class="flex w-full flex-col gap-3"><label for="newsletter-email" class="type-ui">Email</label><div class="@container"><div class="flex flex-col shadow-xs @xs:flex-row"><input id="newsletter-email" type="email" placeholder="name@example.com" class="h-12 min-w-0 border-2 border-input bg-card px-4 text-base placeholder:text-muted-foreground @xs:flex-1" /><button type="submit" class="h-12 shrink-0 border-2 border-t-0 border-border bg-primary px-5 text-base font-bold text-primary-foreground transition-colors hover:bg-primary-hover @xs:border-t-2 @xs:border-l-0">Subscribe</button></div></div><p class="type-caption text-muted-foreground">A line on how often email arrives.</p></form>`,
         },
         {
           name: 'Toast',
           category: 'Feedback',
           stateful: true,
-          html: `<div role="status" class="flex w-full max-w-sm items-start gap-3 border-2 border-l-8 border-border border-l-mint bg-card py-3 pr-2 pl-4 shadow-lg"><div class="flex min-w-0 flex-1 flex-col items-start gap-1"><p class="type-ui">Added to your order</p><p class="type-caption text-muted-foreground">2 × Weekend pass · Rp240.000</p><button type="button" class="mt-2 h-9 border-2 border-border bg-card px-3 type-ui shadow-xs blok-press hover:bg-accent">Undo</button></div><button type="button" data-dismiss aria-label="Dismiss" class="inline-flex size-9 shrink-0 items-center justify-center text-foreground hover:bg-accent">${icons.x}</button></div>`,
+          html: `<div role="status" class="flex w-full max-w-sm items-start gap-3 border-2 border-l-8 border-border border-l-mint bg-card py-3 pr-2 pl-4 shadow-lg"><div class="flex min-w-0 flex-1 flex-col items-start gap-1"><p class="type-ui">Changes saved</p><p class="type-caption text-muted-foreground">Undo stays here for a few seconds.</p><button type="button" class="mt-2 h-9 border-2 border-border bg-card px-3 type-ui shadow-xs blok-press hover:bg-accent">Undo</button></div><button type="button" data-dismiss aria-label="Dismiss" class="inline-flex size-9 shrink-0 items-center justify-center text-foreground hover:bg-accent">${icons.x}</button></div>`,
         },
       ];
 
@@ -219,7 +243,7 @@
       gallery.innerHTML = components
         .map(
           (c, i) => `<article data-index="${i}" data-category="${c.category}" class="flex min-h-84 flex-col border-3 border-border bg-card shadow-sm">
-            <header class="flex h-12 items-center justify-between gap-3 border-b-3 border-border pr-2 pl-4 ${headers[c.category]}">
+            <header class="flex h-12 items-center justify-between gap-3 border-b-3 border-border pr-2 pl-6 ${headers[c.category]}">
               <h2 class="type-label">${c.name}</h2>
               <div class="flex gap-2">
                 ${c.stateful ? `<button type="button" data-reset aria-label="Reset ${c.name}" class="${cardButton}">${icons.reset}</button>` : ''}
