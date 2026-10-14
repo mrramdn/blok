@@ -1,0 +1,493 @@
+/*
+ * Blok: a neo-brutalist theme for Tailwind CSS v4. Thick outlines, hard offset
+ * shadows, flat loud fills and square corners.
+ *
+ *   @import "tailwindcss";
+ *   @import "./blok.css";
+ *
+ * Token names follow shadcn/ui, so shadcn components pick the theme up as is.
+ * The rules behind the values are in DESIGN.md.
+ */
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #fffdf7;
+  --foreground: #000000;
+  --card: #ffffff;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #ffe600;
+  --primary-hover: #ffd500;
+  --primary-foreground: #000000;
+  --secondary: #f1eee5;
+  --secondary-foreground: #000000;
+  --muted: #f1eee5;
+  --muted-foreground: #525252;
+  --accent: #f1eee5;
+  --accent-foreground: #000000;
+  --destructive: #d7261d;
+  --destructive-foreground: #ffffff;
+  --success: #00c853;
+  --success-foreground: #000000;
+  --warning: #ff8a00;
+  --warning-foreground: #000000;
+  --pink: #ff5ca8;
+  --pink-foreground: #000000;
+  --blue: #2d5bff;
+  --blue-foreground: #ffffff;
+  --mint: #5eead4;
+  --mint-foreground: #000000;
+  --chart-1: #ffe600;
+  --chart-2: #ff5ca8;
+  --chart-3: #2d5bff;
+  --chart-4: #5eead4;
+  --chart-5: #000000;
+  --border: #000000;
+  --input: #000000;
+  --ring: #2d5bff;
+  --grid: #0000001a;
+  --radius: 0px;
+  --shadow-xs: 4px 4px 0 0 var(--foreground);
+  --shadow-sm: 6px 6px 0 0 var(--foreground);
+  --shadow-lg: 10px 10px 0 0 var(--foreground);
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #f5f2e8;
+  --card: #1b1b1b;
+  --card-foreground: #f5f2e8;
+  --popover: #1b1b1b;
+  --popover-foreground: #f5f2e8;
+  --primary: #ffe600;
+  --primary-hover: #ffd500;
+  --primary-foreground: #000000;
+  --secondary: #2a2a2a;
+  --secondary-foreground: #f5f2e8;
+  --muted: #2a2a2a;
+  --muted-foreground: #b8b4a8;
+  --accent: #2a2a2a;
+  --accent-foreground: #f5f2e8;
+  --destructive: #d7261d;
+  --destructive-foreground: #ffffff;
+  --success: #00c853;
+  --success-foreground: #000000;
+  --warning: #ff8a00;
+  --warning-foreground: #000000;
+  --pink: #ff5ca8;
+  --pink-foreground: #000000;
+  --blue: #2d5bff;
+  --blue-foreground: #ffffff;
+  --mint: #5eead4;
+  --mint-foreground: #000000;
+  --chart-1: #ffe600;
+  --chart-2: #ff5ca8;
+  --chart-3: #2d5bff;
+  --chart-4: #5eead4;
+  --chart-5: #f5f2e8;
+  --border: #f5f2e8;
+  --input: #f5f2e8;
+  --ring: #7a9bff;
+  --grid: #f5f2e81a;
+  --shadow-xs: 4px 4px 0 0 var(--foreground);
+  --shadow-sm: 6px 6px 0 0 var(--foreground);
+  --shadow-lg: 10px 10px 0 0 var(--foreground);
+}
+
+@theme {
+  /* The default Tailwind palette is removed on purpose: black, white, two creams and five loud fills. */
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-cream-50: #fffdf7;
+  --color-cream-100: #f5f2e8;
+  --color-cream-200: #f1eee5;
+  --color-cream-400: #b8b4a8;
+  --color-gray-600: #525252;
+  --color-gray-800: #2a2a2a;
+  --color-gray-900: #1b1b1b;
+  --color-gray-950: #121212;
+  --color-yellow-400: #ffe600;
+  --color-yellow-500: #ffd500;
+  --color-pink-400: #ff5ca8;
+  --color-blue-500: #2d5bff;
+  --color-blue-300: #7a9bff;
+  --color-mint-300: #5eead4;
+  --color-red-600: #d7261d;
+  --color-green-500: #00c853;
+  --color-orange-500: #ff8a00;
+
+  /* Archivo (variable, with the width axis) and Space Mono have to be loaded by the app. */
+  --font-sans: "Archivo", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Hard shadows only, always down and right, in the outline color. No blur anywhere. */
+  --shadow-*: initial;
+  --shadow-xs: 4px 4px 0 0 var(--foreground);
+  --shadow-sm: 6px 6px 0 0 var(--foreground);
+  --shadow-lg: 10px 10px 0 0 var(--foreground);
+
+  /* No corners. */
+  --radius-*: initial;
+
+  --default-transition-duration: 120ms;
+  --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+
+  --animate-marquee: marquee 28s linear infinite;
+  --animate-step-spin: step-spin 1s steps(8) infinite;
+
+  @keyframes marquee {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @keyframes step-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-pink: var(--pink);
+  --color-pink-foreground: var(--pink-foreground);
+  --color-blue: var(--blue);
+  --color-blue-foreground: var(--blue-foreground);
+  --color-mint: var(--mint);
+  --color-mint-foreground: var(--mint-foreground);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-grid: var(--grid);
+
+  /* Every radius is 0. shadcn/ui components that use rounded-md or rounded-lg come out square. */
+  --radius-xs: var(--radius);
+  --radius-sm: var(--radius);
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius);
+  --radius-2xl: var(--radius);
+  --radius-3xl: var(--radius);
+  --radius-4xl: var(--radius);
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+
+  html {
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  /* The focus ring is the one blue line in the system: 3px, offset 2px, never removed. */
+  :focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+  }
+}
+
+/*
+ * Type styles. Each one sets size, line height, tracking, weight and, for the
+ * display and heading roles, the expanded width of Archivo (wdth 125). They
+ * are named type-* instead of text-* so tailwind-merge never mistakes them
+ * for a text color.
+ */
+@utility type-display {
+  font-size: 5rem;
+  line-height: 5rem;
+  letter-spacing: -0.02em;
+  font-weight: 900;
+  font-stretch: 125%;
+}
+
+@utility type-h1 {
+  font-size: 3.5rem;
+  line-height: 3.5rem;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+  font-stretch: 125%;
+}
+
+@utility type-h2 {
+  font-size: 2.5rem;
+  line-height: 2.75rem;
+  letter-spacing: -0.015em;
+  font-weight: 800;
+  font-stretch: 125%;
+}
+
+@utility type-h3 {
+  font-size: 1.75rem;
+  line-height: 2rem;
+  letter-spacing: -0.01em;
+  font-weight: 800;
+  font-stretch: 125%;
+}
+
+@utility type-title {
+  font-size: 1.25rem;
+  line-height: 1.5rem;
+  letter-spacing: 0;
+  font-weight: 700;
+  font-stretch: 100%;
+}
+
+@utility type-body {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-stretch: 100%;
+}
+
+/* The workhorse for interface text: field labels, options, list rows, chips, small buttons. */
+@utility type-ui {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0;
+  font-weight: 600;
+  font-stretch: 100%;
+}
+
+@utility type-small {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0;
+  font-weight: 400;
+  font-stretch: 100%;
+}
+
+/* Space Mono: captions and metadata. */
+@utility type-caption {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.02em;
+  font-weight: 400;
+}
+
+/* Space Mono in capitals: badges, tags, card headers, step numbers, sticker text. */
+@utility type-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1rem;
+  letter-spacing: 0.08em;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+/* Space Mono at interface size: code, times, prices and other figures. */
+@utility type-mono {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  letter-spacing: 0;
+  font-weight: 400;
+}
+
+/*
+ * The physics of a block. On hover it lifts: it moves up and left by 2px and
+ * its shadow grows to the card size. On press, or while aria-pressed is true,
+ * it sinks into its shadow: it moves down and right by 4px and the shadow
+ * disappears. Pair it with shadow-xs.
+ */
+@utility blok-press {
+  transition-property: transform, box-shadow, background-color, color, border-color;
+  transition-duration: 120ms;
+  transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+
+  &:hover:not(:disabled, [aria-pressed="true"]) {
+    transform: translate(-2px, -2px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  &:active:not(:disabled),
+  &[aria-pressed="true"] {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--foreground);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition-duration: 0ms;
+  }
+}
+
+/* The visible grid behind a page: 24px cells in a faint line. */
+@utility blok-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/*
+ * Native range input. The track is a 16px outlined bar, the thumb a 24px
+ * block with its own shadow. Chrome and Safari cannot paint the filled part
+ * on their own, so set --slider-fill to the value in percent on every input.
+ */
+@utility blok-slider {
+  appearance: none;
+  width: 100%;
+  height: 2.25rem;
+  padding: 0 0.25rem 0.25rem 0;
+  background: transparent;
+  cursor: pointer;
+
+  &::-webkit-slider-runnable-track {
+    box-sizing: border-box;
+    height: 1rem;
+    border: 2px solid var(--input);
+    background: linear-gradient(
+      to right,
+      var(--primary) var(--slider-fill, 50%),
+      var(--card) var(--slider-fill, 50%)
+    );
+  }
+
+  &::-moz-range-track {
+    box-sizing: border-box;
+    height: 1rem;
+    border: 2px solid var(--input);
+    background: var(--card);
+  }
+
+  &::-moz-range-progress {
+    box-sizing: border-box;
+    height: 1rem;
+    border: 2px solid var(--input);
+    background: var(--primary);
+  }
+
+  &::-webkit-slider-thumb {
+    appearance: none;
+    box-sizing: border-box;
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-top: -0.375rem;
+    border: 2px solid var(--input);
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
+  }
+
+  &::-moz-range-thumb {
+    box-sizing: border-box;
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid var(--input);
+    border-radius: 0;
+    background: var(--card);
+    box-shadow: var(--shadow-xs);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+/*
+ * Native checkbox. A 24px outlined block; checked, it fills with the primary
+ * yellow and shows a black check in both modes.
+ */
+@utility blok-checkbox {
+  appearance: none;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--input);
+  background-color: var(--card);
+  box-shadow: var(--shadow-xs);
+  cursor: pointer;
+  transition-property: background-color, transform, box-shadow;
+  transition-duration: 120ms;
+
+  &:checked {
+    background-color: var(--primary);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000000' stroke-width='3.5' stroke-linecap='square' stroke-linejoin='miter'%3E%3Cpath d='M5 12.5l4.5 4.5L19 7'/%3E%3C/svg%3E");
+    background-size: 1rem 1rem;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  &:active:not(:disabled) {
+    transform: translate(4px, 4px);
+    box-shadow: 0 0 0 0 var(--foreground);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+/*
+ * Native radio. The one round shape in the system, so it reads as a radio:
+ * a 24px circle with a 2px outline; checked, a thick ring around a yellow
+ * center.
+ */
+@utility blok-radio {
+  appearance: none;
+  flex: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: 2px solid var(--input);
+  border-radius: 9999px;
+  background-color: var(--card);
+  cursor: pointer;
+  transition-property: border-width, background-color;
+  transition-duration: 120ms;
+
+  &:checked {
+    border-width: 7px;
+    background-color: var(--primary);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
