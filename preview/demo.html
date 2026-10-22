@@ -66,25 +66,33 @@
         </div>
       </section>
 
-      <!-- Topics -->
-      <div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground">
-        <p class="sr-only">Risograph, letterpress, zines, screen print, linocut, bookbinding, photocopy.</p>
-        <ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Risograph<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Letterpress<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Zines<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Screen print<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Linocut<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Bookbinding<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Photocopy<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Risograph<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Letterpress<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Zines<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Screen print<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Linocut<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Bookbinding<span class="size-3 bg-primary-foreground"></span></li>
-          <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Photocopy<span class="size-3 bg-primary-foreground"></span></li>
-        </ul>
+      <!-- Topics: the Pause button in the cap stops the strip and reads Play until it is pressed again. -->
+      <div data-marquee class="group/marquee flex w-full border-y-3 border-border bg-primary text-primary-foreground">
+        <div class="min-w-0 flex-1 overflow-hidden py-3">
+          <p class="sr-only">Risograph, letterpress, zines, screen print, linocut, bookbinding, photocopy.</p>
+          <ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused] group-data-paused/marquee:[animation-play-state:paused]">
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Risograph<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Letterpress<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Zines<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Screen print<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Linocut<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Bookbinding<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Photocopy<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Risograph<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Letterpress<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Zines<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Screen print<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Linocut<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Bookbinding<span class="size-3 bg-primary-foreground"></span></li>
+            <li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Photocopy<span class="size-3 bg-primary-foreground"></span></li>
+          </ul>
+        </div>
+        <div class="flex shrink-0 items-center border-l-3 border-current px-4 motion-reduce:hidden">
+          <button type="button" data-marquee-pause class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border bg-card px-4 type-ui text-foreground shadow-xs blok-press hover:bg-accent">
+            <span class="inline-flex items-center gap-2 group-data-paused/marquee:hidden"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/></svg>Pause</span>
+            <span class="hidden items-center gap-2 group-data-paused/marquee:inline-flex"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="6 3 20 12 6 21 6 3"/></svg>Play</span>
+          </button>
+        </div>
       </div>
 
       <!-- Program -->
@@ -379,6 +387,8 @@
           toast.hidden = false;
         });
       }
+      $('[data-marquee-pause]').addEventListener('click', (event) => event.currentTarget.closest('[data-marquee]').toggleAttribute('data-paused'));
+
       $('#undo').addEventListener('click', () => (toast.hidden = true));
       $('[data-dismiss]').addEventListener('click', () => (toast.hidden = true));
 

@@ -38,6 +38,8 @@
         sun: icon('<circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/>', 20),
         moon: icon('<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>', 20),
         arrow: icon('<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>'),
+        pause: icon('<rect x="14" y="4" width="4" height="16" rx="1"/><rect x="6" y="4" width="4" height="16" rx="1"/>'),
+        play: icon('<polygon points="6 3 20 12 6 21 6 3"/>'),
         trash: icon('<path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/>'),
         share: icon('<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" x2="15.42" y1="13.51" y2="17.49"/><line x1="15.41" x2="8.59" y1="6.51" y2="10.49"/>', 20),
         add: icon('<path d="M5 12h14"/><path d="M12 5v14"/>', 20),
@@ -77,6 +79,8 @@
       const marqueeItem = 'flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase';
       const marqueeItems = ['New', 'Label', 'Label', 'Label'].map((word) => `<li class="${marqueeItem}">${word}<span class="size-3 bg-primary-foreground"></span></li>`).join('');
       const marqueeItems2 = ['Label', 'Label', 'Label'].map((word) => `<li class="${marqueeItem}">${word}<span class="size-3 bg-background"></span></li>`).join('');
+      // The cap at the end of a strip: a small outline button that reads Pause, and Play while the strip is paused.
+      const marqueePause = `<div class="flex shrink-0 items-center border-l-3 border-current px-4 motion-reduce:hidden"><button type="button" data-marquee-pause class="${buttonSmall} bg-card text-foreground hover:bg-accent"><span class="inline-flex items-center gap-2 group-data-paused/marquee:hidden">${icons.pause}Pause</span><span class="hidden items-center gap-2 group-data-paused/marquee:inline-flex">${icons.play}Play</span></button></div>`;
 
       const components = [
         {
@@ -87,8 +91,9 @@
         {
           name: 'Marquee',
           category: 'Content',
+          stateful: true,
           bleed: true,
-          html: `<div class="flex w-full flex-col gap-6"><div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground"><p class="sr-only">New. Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]">${marqueeItems}${marqueeItems}</ul></div><div class="w-full overflow-hidden border-y-3 border-border bg-foreground py-3 text-background"><p class="sr-only">Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee [animation-direction:reverse] motion-reduce:animate-none hover:[animation-play-state:paused]">${marqueeItems2}${marqueeItems2}</ul></div></div>`,
+          html: `<div class="flex w-full flex-col gap-6"><div data-marquee class="group/marquee flex w-full border-y-3 border-border bg-primary text-primary-foreground"><div class="min-w-0 flex-1 overflow-hidden py-3"><p class="sr-only">New. Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused] group-data-paused/marquee:[animation-play-state:paused]">${marqueeItems}${marqueeItems}</ul></div>${marqueePause}</div><div data-marquee class="group/marquee flex w-full border-y-3 border-border bg-foreground text-background"><div class="min-w-0 flex-1 overflow-hidden py-3"><p class="sr-only">Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee [animation-direction:reverse] motion-reduce:animate-none hover:[animation-play-state:paused] group-data-paused/marquee:[animation-play-state:paused]">${marqueeItems2}${marqueeItems2}</ul></div>${marqueePause}</div></div>`,
         },
         {
           name: 'Pricing tier',
@@ -273,6 +278,7 @@
         if (selected) for (const t of selected.parentElement.children) t.setAttribute('aria-selected', t === selected);
         if (pressed && !copy) for (const b of pressed.parentElement.children) b.setAttribute('aria-pressed', b === pressed);
         if (event.target.closest('[data-dismiss]')) event.target.closest('[role=status]').hidden = true;
+        if (event.target.closest('[data-marquee-pause]')) event.target.closest('[data-marquee]').toggleAttribute('data-paused');
         if (event.target.closest('[data-reset]')) {
           const demo = card.querySelector('[data-demo]');
           demo.innerHTML = component.html;

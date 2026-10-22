@@ -135,6 +135,7 @@
   --default-transition-duration: 120ms;
   --default-transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
 
+  /* Endless, so the marquee recipe always carries a Pause button (DESIGN.md, Marquee). */
   --animate-marquee: marquee 28s linear infinite;
   --animate-step-spin: step-spin 1s steps(8) infinite;
 
@@ -218,10 +219,52 @@
     color: var(--foreground);
   }
 
-  /* The focus ring is the one blue line in the system: 3px, offset 2px, never removed. */
+  /*
+   * The focus ring is the one blue line in the system: 3px, offset 2px, never removed. On a fill it takes the
+   * fill's own text color instead, since the blue disappears on the blue fill and fades on the light ones: black
+   * on yellow, pink, mint and the status fills, white on blue and red, the ground color on an inverted block.
+   * Every surface sets the color for what sits directly on it, and the children inherit it, so a card on a fill
+   * gets the blue back.
+   */
   :focus-visible {
-    outline: 3px solid var(--ring);
+    outline: 3px solid var(--ring-on-fill, var(--ring));
     outline-offset: 2px;
+  }
+
+  :where(.bg-background, .bg-card, .bg-popover, .bg-secondary, .bg-muted, .bg-accent) > * {
+    --ring-on-fill: initial;
+  }
+
+  :where(.bg-primary) > * {
+    --ring-on-fill: var(--primary-foreground);
+  }
+
+  :where(.bg-pink) > * {
+    --ring-on-fill: var(--pink-foreground);
+  }
+
+  :where(.bg-blue) > * {
+    --ring-on-fill: var(--blue-foreground);
+  }
+
+  :where(.bg-mint) > * {
+    --ring-on-fill: var(--mint-foreground);
+  }
+
+  :where(.bg-success) > * {
+    --ring-on-fill: var(--success-foreground);
+  }
+
+  :where(.bg-warning) > * {
+    --ring-on-fill: var(--warning-foreground);
+  }
+
+  :where(.bg-destructive) > * {
+    --ring-on-fill: var(--destructive-foreground);
+  }
+
+  :where(.bg-foreground) > * {
+    --ring-on-fill: var(--background);
   }
 
   ::selection {

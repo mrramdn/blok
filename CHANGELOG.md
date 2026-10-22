@@ -3,6 +3,22 @@
 Blok uses semantic versions. While it is in beta, a minor version adds or changes tokens, components or rules,
 and a patch fixes them. Every version is a git tag (`v0.1.0`) and an entry in the design site's record.
 
+## 0.2.2 (2026-10-24)
+
+- The focus ring reads on every fill. It stays blue on the ground, on cards and on controls; on a fill it takes
+  the fill's own text color: black on yellow, pink, mint, green and orange, white on blue and red, the ground
+  color on an inverted block. The blue measured 1.0:1 on the blue card headers and 1.8:1 on the pink ones in light
+  mode, and 1.1:1 to 2.4:1 on every fill in dark mode (the 35 copy and reset buttons in the gallery's card headers,
+  and the demo's footer links); the lowest is now 5.2:1. `blok.css` sets it for anything placed on a `bg-*` fill,
+  so no markup changes.
+- The marquee has a Pause button in a cap at the end of each strip, behind a 3px rule in the strip's ink. It
+  stops the strip and reads Play until it is pressed again; the strip still pauses on hover and stops under
+  reduced motion, where the cap is hidden. The gallery's Marquee card keeps state now, so it has a reset button
+  (12 cards, up from 11).
+- `DESIGN.md`: the ring rule, the ring's contrast on cards and on each fill, the Marquee and Focus recipes, and a
+  Do for anything that moves by itself. The inverted-block pair reads 20.7:1 and 16.7:1, not 21.0:1 and 18.8:1.
+- Figma: not changed in this release; the Marquee component still shows the strip without its Pause button.
+
 ## 0.2.1 (2026-10-14)
 
 - The gallery groups its 24 components under category headings (Actions, Content, Input, Navigation, Feedback;

@@ -268,7 +268,7 @@ components:
 
 Blok is a neo-brutalist system for marketing sites, launches, events, indie products and creative tools. Everything is a block: a flat fill inside a 2px black outline (3px on cards), a hard shadow offset down and right with no blur, square corners, heavy type. Blocks are physical: on hover a block lifts and its shadow grows, on press it sinks into its shadow. The page behind the blocks shows its grid.
 
-Loud but disciplined. There are five fills (a high-visibility yellow for the primary action, a hot pink, a cobalt blue, a mint and black), two offsets for shadows (4px on controls, 6px on cards), one outline color, one radius (none) and one focus color. The same values appear everywhere.
+Loud but disciplined. There are five fills (a high-visibility yellow for the primary action, a hot pink, a cobalt blue, a mint and black), two offsets for shadows (4px on controls, 6px on cards), one outline color, one radius (none) and one focus color, which takes a fill's own text color on that fill. The same values appear everywhere.
 
 The same tokens exist in three places and must stay in sync:
 
@@ -318,7 +318,7 @@ Use semantic tokens only. The default Tailwind palette is removed in `blok.css`,
 | `chart-5` | `#000000` | `#F5F2E8` | Fifth data series |
 | `border` | `#000000` | `#F5F2E8` | Every outline and divider |
 | `input` | `#000000` | `#F5F2E8` | Outline of fields, checkboxes, radios, slider |
-| `ring` | `#2D5BFF` | `#7A9BFF` | Focus ring |
+| `ring` | `#2D5BFF` | `#7A9BFF` | Focus ring on the ground, cards and controls; on a fill the ring takes the fill's text color |
 | `grid` | `#0000001A` | `#F5F2E81A` | The 24px grid behind a page (`blok-grid`) |
 
 Shadows are tokens too and reference `foreground`, so they flip with the mode: `--shadow-xs` is `4px 4px 0 0 var(--foreground)` (controls), `--shadow-sm` is `6px 6px 0 0` (cards), `--shadow-lg` is `10px 10px 0 0` (menus, dialogs, toasts). Dark mode is the `.dark` class on a parent element: the ground turns near-black and the ink, outlines and shadows turn off-white; the five fills stay as they are.
@@ -330,6 +330,7 @@ Rules:
 - `foreground` does triple duty as text, outline and shadow. Do not introduce a gray outline or a gray shadow.
 - Inverted blocks (`bg-foreground text-background`) are for selected chips, selected tabs, the "Closed" badge and the step that is done.
 - Status colors are fills with words, never color alone.
+- The focus ring is blue on the ground, on cards and on controls. On a fill it takes the fill's text color, as the words do: black on yellow, pink, mint, green and orange, white on blue and red, the ground color on an inverted block. `blok.css` sets this for everything placed on a `bg-*` fill, so the markup does not change, and a card on a fill gets the blue back.
 
 Measured contrast (WCAG 2, both modes pass AA for text; most pass AAA):
 
@@ -343,7 +344,7 @@ Measured contrast (WCAG 2, both modes pass AA for text; most pass AAA):
 | `muted-foreground` on `background` | 7.7:1 | 9.0:1 |
 | `muted-foreground` on `card` | 7.8:1 | 8.3:1 |
 | `muted-foreground` on `secondary` | 6.7:1 | 6.9:1 |
-| `background` on `foreground` (inverted blocks) | 21.0:1 | 18.8:1 |
+| `background` on `foreground` (inverted blocks) | 20.7:1 | 16.7:1 |
 | `pink-foreground` on `pink` | 7.4:1 | 7.4:1 |
 | `blue-foreground` on `blue` | 5.2:1 | 5.2:1 |
 | `mint-foreground` on `mint` | 14.2:1 | 14.2:1 |
@@ -352,8 +353,14 @@ Measured contrast (WCAG 2, both modes pass AA for text; most pass AAA):
 | `warning-foreground` on `warning` | 8.9:1 | 8.9:1 |
 | `input` outline against `card` | 21.0:1 | 15.4:1 |
 | `ring` against `background` | 5.1:1 | 7.1:1 |
+| `ring` against `card` | 5.2:1 | 6.5:1 |
+| Ring on `primary` (`primary-foreground`) | 16.6:1 | 16.6:1 |
+| Ring on `pink` (`pink-foreground`) | 7.4:1 | 7.4:1 |
+| Ring on `blue` (`blue-foreground`) | 5.2:1 | 5.2:1 |
+| Ring on `mint` (`mint-foreground`) | 14.2:1 | 14.2:1 |
+| Ring on an inverted block (`background` on `foreground`) | 20.7:1 | 16.7:1 |
 
-Two pairs fail and are therefore not allowed: black on `blue` is 4.1:1 (blue takes white text) and white on `pink` is 2.9:1 (pink takes black text). Yellow on white is 1.1:1, which is why yellow is never text.
+Two pairs fail and are therefore not allowed: black on `blue` is 4.1:1 (blue takes white text) and white on `pink` is 2.9:1 (pink takes black text). Yellow on white is 1.1:1, which is why yellow is never text. The blue ring would fail on the fills too (1.0:1 on `blue` and 1.8:1 on `pink` in light mode, 1.1:1 to 2.4:1 on every fill in dark mode), which is why a fill gives the ring its own text color.
 
 ## Typography
 
@@ -566,11 +573,13 @@ A 32px outlined square with a yellow top edge, turning in eight steps a second. 
 
 ### Marquee
 
-A strip with 3px rules, top and bottom, whose items scroll left for 28 seconds per loop. The list is doubled so the loop is seamless, and hidden from assistive technology; the words are repeated in a visually hidden paragraph. It pauses on hover and stops under `prefers-reduced-motion`. The inverted strip is `bg-foreground text-background` with `bg-background` squares and runs the other way with `[animation-direction:reverse]`. Squares on the yellow strip are `bg-primary-foreground`, so they stay black in dark mode.
+A strip with 3px rules, top and bottom, whose items scroll left for 28 seconds per loop. The list is doubled so the loop is seamless, and hidden from assistive technology; the words are repeated in a visually hidden paragraph. It never stops by itself, so it always carries a Pause button: a small outline button in a cap at the strip's end, behind a 3px rule in the strip's ink (`border-current`), that stays put while the words move. Pressed, it stops the strip and reads Play until it is pressed again; a script toggles `data-paused` on the strip (`[data-marquee]`) and the words and the button follow it. The strip also pauses on hover and stops under `prefers-reduced-motion`, where the cap is hidden. The inverted strip is `bg-foreground text-background` with `bg-background` squares and runs the other way with `[animation-direction:reverse]`. Squares on the yellow strip are `bg-primary-foreground`, so they stay black in dark mode.
 
 ```html
-<div class="flex w-full flex-col gap-6"><div class="w-full overflow-hidden border-y-3 border-border bg-primary py-3 text-primary-foreground"><p class="sr-only">New. Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused]"><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">New<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><!-- the same items once more --></ul></div><div class="w-full overflow-hidden border-y-3 border-border bg-foreground py-3 text-background"><p class="sr-only">Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee [animation-direction:reverse] motion-reduce:animate-none hover:[animation-play-state:paused]"><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><!-- the same items once more --></ul></div></div>
+<div class="flex w-full flex-col gap-6"><div data-marquee class="group/marquee flex w-full border-y-3 border-border bg-primary text-primary-foreground"><div class="min-w-0 flex-1 overflow-hidden py-3"><p class="sr-only">New. Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee motion-reduce:animate-none hover:[animation-play-state:paused] group-data-paused/marquee:[animation-play-state:paused]"><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">New<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-primary-foreground"></span></li><!-- the same items once more --></ul></div><div class="flex shrink-0 items-center border-l-3 border-current px-4 motion-reduce:hidden"><button type="button" data-marquee-pause class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent"><span class="inline-flex items-center gap-2 group-data-paused/marquee:hidden"><!-- pause -->Pause</span><span class="hidden items-center gap-2 group-data-paused/marquee:inline-flex"><!-- play -->Play</span></button></div></div><div data-marquee class="group/marquee flex w-full border-y-3 border-border bg-foreground text-background"><div class="min-w-0 flex-1 overflow-hidden py-3"><p class="sr-only">Label. Label. Label.</p><ul aria-hidden="true" class="flex w-max animate-marquee [animation-direction:reverse] motion-reduce:animate-none hover:[animation-play-state:paused] group-data-paused/marquee:[animation-play-state:paused]"><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><li class="flex items-center gap-6 pr-6 type-h3 whitespace-nowrap uppercase">Label<span class="size-3 bg-background"></span></li><!-- the same items once more --></ul></div><div class="flex shrink-0 items-center border-l-3 border-current px-4 motion-reduce:hidden"><button type="button" data-marquee-pause class="inline-flex h-10 items-center justify-center gap-2 border-2 border-border px-4 type-ui shadow-xs blok-press disabled:pointer-events-none disabled:opacity-40 disabled:shadow-none bg-card text-foreground hover:bg-accent"><span class="inline-flex items-center gap-2 group-data-paused/marquee:hidden"><!-- pause -->Pause</span><span class="hidden items-center gap-2 group-data-paused/marquee:inline-flex"><!-- play -->Play</span></button></div></div></div>
 ```
+
+- The button's script: `button.closest('[data-marquee]').toggleAttribute('data-paused')` on click.
 
 ### Accordion
 
@@ -630,7 +639,7 @@ A floating block with the 10px shadow and an 8px colored stripe on the left. The
 
 ### Focus
 
-Every interactive element gets the global focus ring from `blok.css`: a 3px `ring` outline (cobalt in light mode, a lighter blue in dark mode) with a 2px offset. It is the only blue line in the system that is not a fill. Do not remove it.
+Every interactive element gets the global focus ring from `blok.css`: a 3px `ring` outline (cobalt in light mode, a lighter blue in dark mode) with a 2px offset. It is the only blue line in the system that is not a fill. On a fill the ring takes that fill's text color instead (black on yellow, pink and mint, white on blue, the ground color on an inverted block), so a control in a yellow card header or on an inverted footer shows its focus as clearly as its words; `blok.css` does this for anything placed on a `bg-*` fill. Do not remove it.
 
 ## Do's and Don'ts
 
@@ -639,6 +648,7 @@ Every interactive element gets the global focus ring from `blok.css`: a 3px `rin
 - Do set display and headings in Archivo at width 125 and weight 800 or 900, and labels in Space Mono capitals.
 - Do pair every fill with its own text color: black on yellow, pink and mint; white on blue.
 - Do give icon-only buttons an `aria-label` and form controls a visible label.
+- Do give anything that moves by itself for more than five seconds a visible Pause button, as the marquee's cap does.
 - Don't blur a shadow, add a gradient, a glow or a translucent surface. Depth is an offset in the outline color.
 - Don't round a corner. The radio is the only circle.
 - Don't use yellow, pink, blue or mint as text, or more than one loud fill on a single control.
