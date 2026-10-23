@@ -17,6 +17,9 @@ and a patch fixes them. Every version is a git tag (`v0.1.0`) and an entry in th
   (12 cards, up from 11).
 - `DESIGN.md`: the ring rule, the ring's contrast on cards and on each fill, the Marquee and Focus recipes, and a
   Do for anything that moves by itself. The inverted-block pair reads 20.7:1 and 16.7:1, not 21.0:1 and 18.8:1.
+- The gallery's title, Blok, is its `h1`, for screen readers; it looks the same.
+- The demo's home link is named "PC, Pasar Cetak, home". Its name now starts with the PC mark it shows, which is
+  all a phone shows of it, so a voice user can say what they see (WCAG 2.5.3). It looks the same.
 - Figma: not changed in this release; the Marquee component still shows the strip without its Pause button.
 
 ## 0.2.1 (2026-10-14)
