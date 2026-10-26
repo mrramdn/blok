@@ -13,6 +13,7 @@ A neo-brutalist design system: thick black outlines, hard offset shadows without
 | `preview/index.html` | Component gallery built with the theme: 24 live components with neutral placeholder content and their variants and states, grouped under category headings, a dark mode switch, and copy and reset buttons per component. |
 | `preview/demo.html` | An example screen built only from the recipes: the landing page of an invented two-day print and zine fair in Bandung. |
 | `CHANGELOG.md` | What changed in each version. |
+| `LICENSE` | MIT for the CSS and the preview HTML, CC BY 4.0 for `DESIGN.md` and the Figma library. |
 
 Figma: [Blok Design System](https://www.figma.com/design/XcVs9c9Dpbd7N9AIzbY5Ia) (pages Cover, Foundations, Components and Example; Example rebuilds the demo screen from instances in light and dark).
 
@@ -54,11 +55,15 @@ Then open `preview/index.html` (the gallery) or `preview/demo.html` (the example
 
 The version is in `package.json`, `CHANGELOG.md` says what changed, and every release is a git tag. To release:
 
-1. Change the files and run `pnpm build`, so `preview/preview.css` matches the gallery.
-2. Raise `version` in `package.json` and add an entry to `CHANGELOG.md`.
-3. Commit, tag `v<version>` (`git tag -a v0.2.0 -m "Blok 0.2.0"`) and push with `git push --follow-tags`.
-4. On the design site, sync this folder and add the version to Blok's record. The site's tests fail while the
-   record states a different version from the synced files.
+1. Change the files and run `pnpm build`, so `preview/preview.css` matches.
+2. Raise the version everywhere it is written: `version` in `package.json`, a new entry at the top of `CHANGELOG.md`, the `/*!` banner on line 1 of `blok.css` and `preview/input.css`, and `--blok-build` in `blok.css`'s `:root`. Run `pnpm build` again and `pnpm check`, which fails while any of them differ.
+3. Commit, tag `v<version>` (`git tag -a v0.3.0 -m "Blok 0.3.0"`) and push with `git push --follow-tags`, then publish a GitHub Release from the tag with the CHANGELOG entry.
+4. On the design site, run `pnpm sync:system blok <this folder>`, put the pictures in `public/images/blok/<version>/`, and add the version to the record. The site's tests fail while the record, the synced files or a version the gallery names disagree.
+5. Optionally, after the site deploys, save a Wayback snapshot of the product page in both languages.
+
+## Licence
+
+The code is MIT: `blok.css` and everything in `preview/` (HTML and CSS). `DESIGN.md` and the Figma library "Blok Design System" are CC BY 4.0: copy and adapt them, also commercially, with credit to "Blok by Rifki Ramdani, https://uiux.mrramdn.com/en/systems/blok". The full text is in `LICENSE`.
 
 ## Where the look comes from
 

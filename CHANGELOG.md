@@ -3,6 +3,32 @@
 Blok uses semantic versions. While it is in beta, a minor version adds or changes tokens, components or rules,
 and a patch fixes them. Every version is a git tag (`v0.1.0`) and an entry in the design site's record.
 
+## 0.3.0 (2026-10-26)
+
+- The dark focus ring is a deeper blue, `#4D73FF` instead of `#7A9BFF`. In dark mode the outlines, dividers and
+  hard shadows are off-white, and a ring on a bordered control lies about half on them; the old blue read only
+  2.4:1 there, on the Tabs, the Accordion and the demo's questions. It now reads 3.6:1 against the off-white,
+  4.7:1 on the ground and 4.3:1 on cards, all above the 3:1 a focus indicator needs. Light mode and the ring on
+  fills do not change. `DESIGN.md` lists the new value and adds the ring against outlines and shadows to the
+  contrast table.
+- `blok.css` sets `color-scheme: light` on `:root` and `color-scheme: dark` on `.dark`, so native controls,
+  scrollbars and form fields follow the theme instead of staying light in dark mode.
+- `blok.css` names its release in a `--blok-build` property and a `/*!` banner on line 1, which minifiers keep,
+  so a copied theme still says which version it came from. Nothing reads the property.
+- Licence: a `LICENSE` file. The CSS and the preview HTML are MIT; `DESIGN.md` and the Figma library are CC BY
+  4.0, so they can be copied and adapted with credit. `package.json`, the README and `DESIGN.md` say the same.
+- `pnpm check` fails while `package.json`, the newest entry here, the banners and `--blok-build` name different
+  versions. The README's release steps list every place the version is written and add the GitHub Release.
+- The demo no longer scrolls sideways on a 320px phone: the Visit and Questions section has one column of
+  `minmax(0, 1fr)` below the large breakpoint, and its two headings drop to `type-h3` on small screens, so
+  "QUESTIONS" fits. It was 11px too wide. The opening hours in the Visit list stay on one line.
+- The demo's contact address is `halo@pasarcetak.example`, a reserved domain, instead of a `.id` domain someone
+  could register, and the fair's street has no house number, in the hero, the Visit list and the calendar file.
+- The demo's header shows PASAR CETAK in words on every screen, without the PC block beside it, and
+  `DESIGN.md`'s Do's and Don'ts say the wordmark and headlines carry no icon, logo mark or initials badge.
+- Figma: the Marquee component has its Pause button in a cap at the end of the strip, with a Paused state that
+  reads Play, as in the web build.
+
 ## 0.2.2 (2026-10-24)
 
 - The focus ring reads on every fill. It stays blue on the ground, on cards and on controls; on a fill it takes

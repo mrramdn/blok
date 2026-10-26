@@ -1,3 +1,4 @@
+/*! Blok 0.3.0 · © 2026 Rifki Ramdani · MIT · https://uiux.mrramdn.com/en/systems/blok */
 /*
  * Blok: a neo-brutalist theme for Tailwind CSS v4. Thick outlines, hard offset
  * shadows, flat loud fills and square corners.
@@ -12,6 +13,8 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
+  /* The release this file came from. Not a design token: nothing reads it. */
+  --blok-build: "blok 0.3.0 · uiux.mrramdn.com";
   --background: #fffdf7;
   --foreground: #000000;
   --card: #ffffff;
@@ -52,6 +55,7 @@
   --shadow-xs: 4px 4px 0 0 var(--foreground);
   --shadow-sm: 6px 6px 0 0 var(--foreground);
   --shadow-lg: 10px 10px 0 0 var(--foreground);
+  color-scheme: light;
 }
 
 .dark {
@@ -89,11 +93,12 @@
   --chart-5: #f5f2e8;
   --border: #f5f2e8;
   --input: #f5f2e8;
-  --ring: #7a9bff;
+  --ring: #4d73ff;
   --grid: #f5f2e81a;
   --shadow-xs: 4px 4px 0 0 var(--foreground);
   --shadow-sm: 6px 6px 0 0 var(--foreground);
   --shadow-lg: 10px 10px 0 0 var(--foreground);
+  color-scheme: dark;
 }
 
 @theme {
